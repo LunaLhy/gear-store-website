@@ -1,5 +1,3 @@
-@@ -1 +1,47 @@
-# gear-store-website
 # Gear Store Website
 
 Website bán gear công nghệ sử dụng:
