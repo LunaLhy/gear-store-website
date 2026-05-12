@@ -1,212 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gear Store</title>
-
-  <link rel="stylesheet" href="../css/style.css"/>
-  <link rel="stylesheet" href="../css/product.css"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gear Store</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/product.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-
-    <div class="logo">
-      GearStore
-    </div>
+    <header class="header">
+    <div class="logo">GearStore</div>
 
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search products..." />
+        <input type="text" id="searchInput" placeholder="Search products..." />
+        <button id="searchBtn">🔍</button>
     </div>
 
     <nav class="nav">
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-      <a href="addProduct.html">Admin</a>
+        <div class="product-menu">
+        <button id="productMenuBtn">Products</button>
+
+        <div id="megaMenu" class="mega-menu">
+            <div class="menu-left">
+            <div class="menu-item active" data-group="mouse">Mouse</div>
+            <div class="menu-item" data-group="keyboard">Keyboard</div>
+            <div class="menu-item" data-group="headphone">Headphone</div>
+            <div class="menu-item" data-group="micro">Micro</div>
+            <div class="menu-item" data-group="other">Other</div>
+            </div>
+
+            <div class="menu-right" id="menuDetail"></div>
+        </div>
+        </div>
+
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="addProduct.html">Admin</a>
     </nav>
+    </header>
 
-  </header>
-
-  <!-- BANNER -->
-  <section class="banner">
-
+    <section class="banner">
     <div class="banner-content">
-      <h1>Gaming Gear Collection</h1>
-      <p>Simple. Clean. Powerful.</p>
+        <h1>Gaming Gear Collection</h1>
+        <p>Simple • Clean • Powerful</p>
+    </div>
+    </section>
+
+    <section class="simple-category">
+    <div class="simple-card" data-category="keyboard">
+        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3" alt="Keyboard">
+        <h3>Keyboard</h3>
     </div>
 
-  </section>
-
-  <!-- CATEGORY -->
-  <section class="categories">
-
-    <button class="category-btn">Keyboard</button>
-    <button class="category-btn">Mouse</button>
-    <button class="category-btn">Headphone</button>
-    <button class="category-btn">Other</button>
-
-  </section>
-
-  <!-- PRODUCTS -->
-  <main>
-
-    <div id="productContainer" class="product-grid">
-
+    <div class="simple-card" data-category="mouse">
+        <img src="https://images.unsplash.com/photo-1527814050087-3793815479db" alt="Mouse">
+        <h3>Mouse</h3>
     </div>
 
-  </main>
+    <div class="simple-card" data-category="headphone">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" alt="Headphone">
+        <h3>Headphone</h3>
+    </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+    <div class="simple-card" data-category="micro">
+        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc" alt="Micro">
+        <h3>Micro</h3>
+    </div>
+
+    <div class="simple-card" data-category="other">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Other">
+        <h3>Other</h3>
+    </div>
+    </section>
+
+    <section class="filter-bar">
+    <div>
+        <h3>Category</h3>
+
+        <select id="categoryFilter">
+        <option value="all">All</option>
+        <option value="mouse">Mouse</option>
+        <option value="keyboard">Keyboard</option>
+        <option value="headphone">Headphone</option>
+        <option value="micro">Micro</option>
+        <option value="other">Other</option>
+        </select>
+    </div>
+
+    <div>
+        <h3>Price</h3>
+
+        <select id="priceFilter">
+        <option value="all">All Price</option>
+        <option value="0-500000">Dưới 500K</option>
+        <option value="500000-1000000">500K - 1 triệu</option>
+        <option value="1000000-2000000">1 - 2 triệu</option>
+        <option value="2000000-5000000">2 - 5 triệu</option>
+        <option value="5000000-999999999">Trên 5 triệu</option>
+        </select>
+    </div>
+
+    <div>
+        <h3>Brand</h3>
+
+        <select id="brandFilter">
+        <option value="all">All Brand</option>
+        </select>
+    </div>
+    </section>
+
+    <main>
+    <div id="productContainer" class="product-grid"></div>
+    </main>
+
+    <footer class="footer">
     <p>© 2026 Gear Store Website</p>
-  </footer>
+    </footer>
 
-  <script type="module" src="../js/main.js"></script>
-
+    <script type="module" src="../js/main.js"></script>
 </body>
 </html>
-<section class="amazon-section">
-
-  <div class="category-card">
-    <h2>Mouse</h2>
-
-    <div class="mini-grid">
-      <div>
-        <img src="https://images.unsplash.com/photo-1527814050087-3793815479db" alt="Gaming Mouse">
-        <p>Gaming Mouse</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7" alt="Wireless Mouse">
-        <p>Wireless Mouse</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7" alt="RGB Mouse">
-        <p>RGB Mouse</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1527814050087-3793815479db" alt="Office Mouse">
-        <p>Office Mouse</p>
-      </div>
-    </div>
-
-    <a href="products.html">See more</a>
-  </div>
-
-  <div class="category-card">
-    <h2>Keyboard</h2>
-
-    <div class="mini-grid">
-      <div>
-        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3" alt="Mechanical Keyboard">
-        <p>Mechanical</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a" alt="Gaming Keyboard">
-        <p>Gaming</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1595044426077-d36d9236d54a" alt="RGB Keyboard">
-        <p>RGB Keyboard</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1618384887929-16ec33fab9ef" alt="Wireless Keyboard">
-        <p>Wireless</p>
-      </div>
-    </div>
-
-    <a href="products.html">See more</a>
-  </div>
-
-  <div class="category-card">
-    <h2>Headphone</h2>
-
-    <div class="mini-grid">
-      <div>
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" alt="Headphone">
-        <p>Headphone</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1599669454699-248893623440" alt="Gaming Headset">
-        <p>Gaming Headset</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b" alt="Wireless Headphone">
-        <p>Wireless</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944" alt="Earphone">
-        <p>Earphone</p>
-      </div>
-    </div>
-
-    <a href="products.html">See more</a>
-  </div>
-
-  <div class="category-card">
-    <h2>Component</h2>
-
-    <div class="mini-grid">
-      <div>
-        <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea" alt="CPU">
-        <p>CPU</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704" alt="GPU">
-        <p>GPU</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mainboard">
-        <p>Mainboard</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1600348712270-5af9e3590f66" alt="RAM">
-        <p>RAM / SSD</p>
-      </div>
-    </div>
-
-    <a href="products.html">See more</a>
-  </div>
-
-  <div class="category-card">
-    <h2>Micro</h2>
-
-    <div class="mini-grid">
-      <div>
-        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc" alt="Microphone">
-        <p>Microphone</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1589903308904-1010c2294adc" alt="Studio Mic">
-        <p>Studio Mic</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1520170350707-b2da59970118" alt="Streaming Mic">
-        <p>Streaming</p>
-      </div>
-
-      <div>
-        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc" alt="USB Mic">
-        <p>USB Micro</p>
-      </div>
-    </div>
-
-    <a href="products.html">See more</a>
-  </div>
-
-</section>

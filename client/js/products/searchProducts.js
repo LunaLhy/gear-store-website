@@ -1,11 +1,21 @@
-export function searchProducts(products,keyword){
+export function searchProducts(products, keyword) {
+  if (!keyword || keyword.trim() === "") {
+    return products;
+  }
 
-  return products.filter(product =>
+  const search = keyword.toLowerCase().trim();
 
-    product.name
-    .toLowerCase()
-    .includes(keyword.toLowerCase())
+  return products.filter(product => {
+    const name = product.name?.toLowerCase() || "";
+    const brand = product.brand?.toLowerCase() || "";
+    const category = product.category?.toLowerCase() || "";
+    const description = product.description?.toLowerCase() || "";
 
-  );
-
+    return (
+      name.includes(search) ||
+      brand.includes(search) ||
+      category.includes(search) ||
+      description.includes(search)
+    );
+  });
 }

@@ -1,44 +1,26 @@
-import { createProduct }
-from "../api/productAPI.js";
+import { createProduct } from "../api/productAPI.js";
 
-const form =
-document.getElementById("productForm");
+const form = document.getElementById("productForm");
 
-form.addEventListener("submit",
-async(e)=>{
+form.addEventListener("submit", async event => {
+    event.preventDefault();
 
-  e.preventDefault();
+    const productData = {
+    name: document.getElementById("name").value.trim(),
+    brand: document.getElementById("brand").value.trim(),
+    image: document.getElementById("image").value.trim(),
+    price: Number(document.getElementById("price").value),
+    category: document.getElementById("category").value,
+    countInStock: Number(document.getElementById("countInStock").value),
+    description: document.getElementById("description").value.trim()
+    };
 
-  const productData = {
+    const result = await createProduct(productData);
 
-    name:
-    document.getElementById("name").value,
-
-    brand:
-    document.getElementById("brand").value,
-
-    image:
-    document.getElementById("image").value,
-
-    price:
-    document.getElementById("price").value,
-
-    category:
-    document.getElementById("category").value,
-
-    countInStock:
-    document.getElementById("countInStock").value,
-
-    description:
-    document.getElementById("description").value
-
-  };
-
-  const result =
-  await createProduct(productData);
-
-  alert("Product Added!");
-
-  console.log(result);
-
+    if (result) {
+    alert("Thêm sản phẩm thành công!");
+    form.reset();
+    } else {
+    alert("Thêm sản phẩm thất bại!");
+    }
 });

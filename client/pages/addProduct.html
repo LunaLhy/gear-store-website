@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Add Product</title>
-
-  <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Add Product</title>
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/auth.css" />
 </head>
 <body>
 
-  <div class="form-container">
-
+<div class="form-container">
     <h1>Add Product</h1>
-
     <form id="productForm">
-
-      <input type="text" id="name" placeholder="Name">
-
-      <input type="text" id="brand" placeholder="Brand">
-
-      <input type="text" id="image" placeholder="Image URL">
-
-      <input type="number" id="price" placeholder="Price">
-
-      <input type="text" id="category" placeholder="Category">
-
-      <input type="number" id="countInStock" placeholder="Stock">
-
-      <textarea id="description"
-      placeholder="Description"></textarea>
-
-      <button type="submit">
-        Add Product
-      </button>
-
+    <input type="text" id="name" placeholder="Product name" required />
+    <input type="text" id="brand" placeholder="Brand" required />
+    <input type="text" id="image" placeholder="Image URL" required />
+    <input type="number" id="price" placeholder="Price" required />
+    <select id="category" required>
+        <option value="">Choose category</option>
+        <option value="mouse">Mouse</option>
+        <option value="keyboard">Keyboard</option>
+        <option value="headphone">Headphone</option>
+        <option value="micro">Micro</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="number" id="countInStock" placeholder="Stock quantity" required />
+    <textarea id="description" placeholder="Description" required></textarea>
+    <button type="submit">Add Product</button>
     </form>
-
-  </div>
-
-  <script type="module"
-  src="../js/products/addProduct.js">
-  </script>
-
+    <a href="index.html">Back to Home</a>
+</div>
+<script type="module" src="../js/products/addProduct.js"></script>
 </body>
 </html>
