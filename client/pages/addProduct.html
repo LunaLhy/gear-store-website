@@ -1,74 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <link
-    rel="stylesheet"
-    href="../css/style.css">
+  <meta charset="UTF-8">
+  <title>Add Product</title>
+
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<section class="add-product">
-    <div class="container">
+
+  <div class="form-container">
+
     <h1>Add Product</h1>
+
     <form id="productForm">
-<!-- NAME -->
-<input
-    type="text"
-    name="name"
-    placeholder="Product Name"
-    required>
-<!-- BRAND -->
-<input
-    type="text"
-    name="brand"
-    placeholder="Brand"
-    required>
-<!-- IMAGE -->
-<input
-    type="text"
-    name="image"
-    placeholder="Thumbnail Image URL"
-    required>
-<!-- MULTIPLE IMAGES -->
-<input
-    type="text"
-    name="images"
-    placeholder="More Images URL (comma separated)">
-<!-- PRICE -->
-<input
-    type="number"
-    name="price"
-    placeholder="Price"
-    required>
-<!-- CATEGORY -->
-<input
-    type="text"
-    name="category"
-    placeholder="Category"
-    required>
-<!-- STOCK -->
-<input
-    type="number"
-    name="countInStock"
-    placeholder="Stock Quantity"
-    required>
-<!-- DESCRIPTION -->
-<textarea
-    name="description"
-    placeholder="Description"
-    required>
-    </textarea>
-    <button type="submit">
+
+      <input type="text" id="name" placeholder="Name">
+
+      <input type="text" id="brand" placeholder="Brand">
+
+      <input type="text" id="image" placeholder="Image URL">
+
+      <input type="number" id="price" placeholder="Price">
+
+      <input type="text" id="category" placeholder="Category">
+
+      <input type="number" id="countInStock" placeholder="Stock">
+
+      <textarea id="description"
+      placeholder="Description"></textarea>
+
+      <button type="submit">
         Add Product
-    </button>
+      </button>
+
     </form>
-</div>
-</section>
-<script
-type="module"
-src="../js/products/addProduct.js">
-</script>
+
+  </div>
+
+  <script type="module"
+  src="../js/products/addProduct.js">
+  </script>
+
+</body>
+</html>
