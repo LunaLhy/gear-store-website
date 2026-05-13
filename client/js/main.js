@@ -37,7 +37,7 @@ function getCategoryProducts() {
     if (selectedCategory === "all") {
     return allProducts;
     }
-    
+
     return allProducts.filter(product => {
     return product.category?.toLowerCase() === selectedCategory;
     });
@@ -191,7 +191,7 @@ function renderMenuDetail(group) {
         >
         ${brand}
         </div>
-    });
+    `});
 
     const detailBoxes = document.querySelectorAll(".detail-box");
     detailBoxes.forEach(box => {
