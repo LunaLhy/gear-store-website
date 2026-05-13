@@ -37,7 +37,7 @@ function getCategoryProducts() {
     if (selectedCategory === "all") {
     return allProducts;
     }
-
+    
     return allProducts.filter(product => {
     return product.category?.toLowerCase() === selectedCategory;
     });
@@ -234,4 +234,4 @@ if (user && user.role === "admin") {
 
   adminLink.style.display = "block";
 
-}
+} 
