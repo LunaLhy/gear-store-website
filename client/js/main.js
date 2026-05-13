@@ -1,3 +1,4 @@
+let selectedSort = "default";
 import { getProducts } from "./api/productAPI.js";
 import { renderProducts } from "./products/renderProducts.js";
 import { searchProducts } from "./products/searchProducts.js";
@@ -31,32 +32,6 @@ function handleSearch() {
 
 searchInput.addEventListener("input", handleSearch);
 searchBtn.addEventListener("click", handleSearch);
-
-/* FILTER */
-
-const categoryFilter = document.getElementById("categoryFilter");
-const priceFilter = document.getElementById("priceFilter");
-const brandFilter = document.getElementById("brandFilter");
-
-categoryFilter.addEventListener("change", () => {
-    selectedCategory = categoryFilter.value;
-    selectedBrand = "all";
-
-    const categoryProducts = getCategoryProducts();
-    renderBrandOptions(categoryProducts);
-
-    applyFilters();
-});
-
-priceFilter.addEventListener("change", () => {
-    selectedPrice = priceFilter.value;
-    applyFilters();
-});
-
-brandFilter.addEventListener("change", () => {
-    selectedBrand = brandFilter.value;
-    applyFilters();
-});
 
 function getCategoryProducts() {
     if (selectedCategory === "all") {
@@ -116,8 +91,33 @@ function applyFilters() {
     if (searchKeyword !== "") {
     result = searchProducts(result, searchKeyword);
     }
+    /* SORT */
+    if (selectedSort === "price-asc") {
+        result.sort((a, b) => Number(a.price) - Number(b.price));
+    }
+
+    if (selectedSort === "price-desc") {
+        result.sort((a, b) => Number(b.price) - Number(a.price));
+    }
+
+    if (selectedSort === "name-asc") {
+        result.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (selectedSort === "newest") {
+        result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
 
     renderProducts(result);
+}
+/* SORT */
+const sortSelect = document.getElementById("sortSelect");
+
+if (sortSelect) {
+  sortSelect.addEventListener("change", () => {
+    selectedSort = sortSelect.value;
+    applyFilters();
+  });
 }
 
 /* CLICK CATEGORY CARD */
@@ -194,21 +194,15 @@ function renderMenuDetail(group) {
     });
 
     const detailBoxes = document.querySelectorAll(".detail-box");
-
     detailBoxes.forEach(box => {
     box.addEventListener("click", () => {
         selectedCategory = box.dataset.category;
         selectedBrand = box.dataset.brand;
-
         categoryFilter.value = selectedCategory;
-
         const categoryProducts = getCategoryProducts();
         renderBrandOptions(categoryProducts);
-
         brandFilter.value = selectedBrand;
-
         applyFilters();
-
         megaMenu.classList.remove("show");
     });
     });
@@ -223,11 +217,21 @@ menuItems.forEach(item => {
     menuItems.forEach(menuItem => {
         menuItem.classList.remove("active");
     });
-
     item.classList.add("active");
-
     const group = item.dataset.group;
-
     renderMenuDetail(group);
     });
 });
+
+/*ADMIN CHECK*/
+const adminLink =
+document.getElementById("adminLink");
+
+const user =
+JSON.parse(localStorage.getItem("user"));
+
+if (user && user.role === "admin") {
+
+  adminLink.style.display = "block";
+
+}

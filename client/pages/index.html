@@ -1,3 +1,4 @@
+</div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,9 @@
     <title>Gear Store</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/product.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 </head>
 <body>
 
@@ -36,95 +40,140 @@
 
         <a href="login.html">Login</a>
         <a href="register.html">Register</a>
-        <a href="addProduct.html">Admin</a>
+        <a href="addProduct.html"
+            id="adminLink"
+            style="display:none;"
+        >
+                Admin
+        </a>
     </nav>
     </header>
 
-    <section class="banner">
-    <div class="banner-content">
-        <h1>Gaming Gear Collection</h1>
-        <p>Simple • Clean • Powerful</p>
-    </div>
-    </section>
+    <section class="hero">
+    <div class="hero-overlay"></div>
 
-    <section class="simple-category">
-    <div class="simple-card" data-category="keyboard">
+    <div class="hero-content">
+    <h1>Build Your Dream Setup</h1>
+    <p>Premium Gaming Gear For Gamers</p>
+
+    <a href="products.html" class="shop-now-btn">
+        Shop Now
+    </a>
+    </div>
+</section>
+
+<section class="categories-section">
+    <h2>Categories</h2>
+
+    <div class="categories-row">
+
+    <a href="products.html?category=keyboard" class="category-image-card">
         <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3" alt="Keyboard">
-        <h3>Keyboard</h3>
-    </div>
+        <span>Keyboard</span>
+    </a>
 
-    <div class="simple-card" data-category="mouse">
+    <a href="products.html?category=mouse" class="category-image-card">
         <img src="https://images.unsplash.com/photo-1527814050087-3793815479db" alt="Mouse">
-        <h3>Mouse</h3>
-    </div>
+        <span>Mouse</span>
+    </a>
 
-    <div class="simple-card" data-category="headphone">
+    <a href="products.html?category=headphone" class="category-image-card">
         <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e" alt="Headphone">
-        <h3>Headphone</h3>
-    </div>
+        <span>Headphone</span>
+    </a>
 
-    <div class="simple-card" data-category="micro">
+    <a href="products.html?category=micro" class="category-image-card">
         <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc" alt="Micro">
-        <h3>Micro</h3>
-    </div>
+        <span>Micro</span>
+    </a>
 
-    <div class="simple-card" data-category="other">
+    <a href="products.html?category=other" class="category-image-card">
         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Other">
-        <h3>Other</h3>
+        <span>Other</span>
+    </a>
+
     </div>
-    </section>
-
-    <section class="filter-bar">
-    <div>
-        <h3>Category</h3>
-
-        <select id="categoryFilter">
-        <option value="all">All</option>
-        <option value="mouse">Mouse</option>
-        <option value="keyboard">Keyboard</option>
-        <option value="headphone">Headphone</option>
-        <option value="micro">Micro</option>
-        <option value="other">Other</option>
-        </select>
-    </div>
-
-    <div>
-        <h3>Price</h3>
-
-        <select id="priceFilter">
-        <option value="all">All Price</option>
-        <option value="0-500000">Dưới 500.000đ</option>
-        <option value="500000-1000000">500.000đ - 1.000.000đ</option>
-        <option value="1000000-2000000">1.000.000đ - 2.000.000đ</option>
-        <option value="2000000-5000000">2.000.000đ - 5.000.000đ</option>
-        <option value="5000000-999999999">Trên 5.000.000đ</option>
-        </select>
-    </div>
-
-    <div>
-        <h3>Brand</h3>
-
-        <select id="brandFilter">
-        <option value="all">All Brand</option>
-        <option value="Logitech">Logitech</option>
-        <option value="Razer">Razer</option>
-        <option value="Moonsgeek">Moonsgeek</option>
-        <option value="Corsair">Corsair</option>
-        <option value="HyperX">HyperX</option>
-        <option value="Asus">Asus</option>
-        <option value="Samsung">Samsung</option>
-        </select>
-    </div>
-    </section>
+</section>
 
     <main>
     <div id="productContainer" class="product-grid"></div>
     </main>
 
     <footer class="footer">
-    <p>© 2026 Gear Store Website</p>
-    </footer>
 
+    <div class="footer-container">
+
+    <!-- ABOUT -->
+
+    <footer class="footer">
+
+    <div class="footer-container">
+
+    <div class="footer-box">
+        <h2>About Us</h2>
+
+        <p>
+        GearStore is a modern gaming gear website
+        for students and gamers. We provide
+        keyboards, mice, headphones, microphones
+        and accessories with a clean and simple
+        shopping experience.
+        </p>
+    </div>
+
+    <div class="footer-box contact-box">
+        <h2>Contact Us</h2>
+
+        <div class="contact-item">
+        <span>📧</span>
+        <p>gearstore@gmail.com</p>
+        </div>
+
+        <div class="contact-item">
+        <span>📞</span>
+        <p>+84 123 456 789</p>
+        </div>
+
+        <div class="contact-item">
+        <span>📍</span>
+        <p>Hanoi, Vietnam</p>
+        </div>
+    </div>
+
+    <div class="footer-box">
+        <h2>Follow Us</h2>
+
+        <div class="social-links">
+        <a href="#">
+            <i class="fa-brands fa-facebook-f"></i>
+            <span>Facebook</span>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Instagram</span>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-tiktok"></i>
+            <span>TikTok</span>
+        </a>
+
+        <a href="#">
+            <i class="fa-brands fa-youtube"></i>
+            <span>YouTube</span>
+        </a>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="footer-bottom">
+    <p>© 2026 GearStore Website | Designed for students</p>
+    </div>
+
+</footer>
+</footer>
     <script type="module" src="../js/main.js"></script>
 </body>
 </html>

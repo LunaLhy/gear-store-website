@@ -1,3 +1,13 @@
+const user =
+JSON.parse(localStorage.getItem("user"));
+
+if (!user || user.role !== "admin") {
+
+  alert("Access denied!");
+
+  window.location.href = "login.html";
+
+}
 import { createProduct } from "../api/productAPI.js";
 
 const form = document.getElementById("productForm");

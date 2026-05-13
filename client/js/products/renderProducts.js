@@ -2,7 +2,6 @@ export function renderProducts(products) {
   const container = document.getElementById("productContainer");
 
   if (!container) {
-    console.log("Không tìm thấy productContainer");
     return;
   }
 
@@ -18,6 +17,9 @@ export function renderProducts(products) {
   }
 
   products.forEach(product => {
+    const stockText =
+      product.countInStock > 0 ? "Còn hàng" : "Hết hàng";
+
     container.innerHTML += `
       <div class="product-card">
 
@@ -33,25 +35,21 @@ export function renderProducts(products) {
             ${product.name}
           </h2>
 
-          <p class="product-brand">
-            Brand: ${product.brand}
-          </p>
-
-          <p class="product-category">
-            Category: ${product.category}
-          </p>
-
           <p class="product-price">
-            ${Number(product.price).toLocaleString("vi-VN")}đ
+            ${Number(product.price).toLocaleString("vi-VN")} VND
           </p>
 
-          <p class="product-stock">
-            Stock: ${product.countInStock}
-          </p>
+          <div class="product-bottom">
 
-          <button class="buy-btn">
-            Add to Cart
-          </button>
+            <button class="add-cart-btn">
+              🛒 THÊM VÀO GIỎ
+            </button>
+
+            <span class="stock-badge">
+              ${stockText}
+            </span>
+
+          </div>
 
         </div>
 
