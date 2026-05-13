@@ -12,11 +12,7 @@ router.post('/', async (req, res) => {
         }
 
         const token = authHeader.split(' ')[1];
-
-        // Giải mã token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
-        // Tìm user để check quyền
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);        
         const user = await User.findById(decoded.id);
 
         if (user && user.isAdmin) {
@@ -62,4 +58,68 @@ router.get('/', async (req, res) => {
     }
 });
 
+//PUT /api/products/:id
+router.put('/:id', async (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ message: "Chua dang nhap" });
+        }
+        const token = authHeader.split(' ')[1];
+
+        // 2. Giải mã token để lấy ID người dùng
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        // 3. Tìm user trong DB và check isAdmin
+        const user = await User.findById(decoded.id);
+
+        if (user && user.isAdmin) {
+            // 4. Nếu là Admin, tiến hành tìm và cập nhật bằng ID lấy từ URL (req.params.id)
+            const updatedProduct = await Product.findByIdAndUpdate(
+                req.params.id, 
+                req.body, 
+                { new: true } // Tham số này để MongoDB trả về data MỚI SAU KHI SỬA
+            );
+
+            if (updatedProduct) {
+                res.json(updatedProduct);
+            } else {
+                res.status(404).json({ message: "Khong tim thay san pham" });
+            }
+        } else {
+            res.status(403).json({ message: "Ban khong co quyen sua san pham" });
+        }
+
+    } catch (error) {
+        res.status(401).json({ message: "Token khong hop le" });
+    }
+});
+
+//DELETE /api/products/:id
+router.delete('/:id', async (req, res) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ message: "Chua dang nhap" });
+        }
+        const token = authHeader.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);        
+        const user = await User.findById(decoded.id);
+
+        if (user && user.isAdmin) {
+            const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+
+            if (deletedProduct) {
+                res.json({ message: "Da xoa thanh cong" });
+            } else {
+                res.status(404).json({ message: "Khong tim thay san pham" });
+            }
+        } else {
+            res.status(403).json({ message: "Ban khong co quyen xoa san pham" });
+        }
+
+    } catch (error) {
+        res.status(401).json({ message: "Token khong hop le" });
+    }
+});
 module.exports = router;
