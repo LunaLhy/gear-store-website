@@ -20,3 +20,14 @@ if(logoutBtn){
     window.location.href = "login.html";
     });
 }
+
+// Admin
+const user = JSON.parse(localStorage.getItem("user"));
+
+const adminLink = document.getElementById("adminLink");
+
+if (user && user.role === "admin") {
+    adminLink.style.display = "inline-block";
+} else {
+    adminLink.style.display = "none";
+}
