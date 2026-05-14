@@ -82,8 +82,8 @@ function renderProducts(products) {
                 <div class="product-img">
                     ${stockStatus} 
                     <img src="${product.image}" 
-                         onerror="this.src='https://placehold.co/600x400/2f3542/ffffff?text=GearStore'"
-                         alt="${product.name}">
+                        onerror="this.src='https://placehold.co/600x400/2f3542/ffffff?text=GearStore'"
+                        alt="${product.name}">
                 </div>
                 <div class="product-info">
                     <span class="brand-name">${product.brand}</span>

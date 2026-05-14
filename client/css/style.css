@@ -581,3 +581,30 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* login and main page css*/
+.user-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:white;
+  font-weight:bold;
+}
+
+.user-box i{
+  color:#ff9900;
+}
+
+#logoutBtn{
+  border:none;
+  background:#ff9900;
+  color:#111;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+#logoutBtn:hover{
+  background:#ff6600;
+  color:white;
+}

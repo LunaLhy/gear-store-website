@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login - GearStore</title>
+
+  <link rel="stylesheet" href="../css/auth.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+</head>
+
+<body>
+
+  <div class="register-container">
+
+    <div class="register-left">
+      <img
+        src="../assets/logo.png"
+        alt="GearStore Logo"
+        class="register-logo"
+      />
+
+      <h1>GearStore</h1>
+
+      <p>
+        Login to continue shopping and manage your gaming gear.
+      </p>
+    </div>
+
+    <div class="register-right">
+
+      <h2>Login</h2>
+
+      <form id="loginForm">
+
+        <div class="input-box">
+          <i class="fa-solid fa-envelope"></i>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="input-box">
+          <i class="fa-solid fa-lock"></i>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="register-btn">
+          Login
+        </button>
+
+      </form>
+
+      <div class="login-link">
+        Don't have an account?
+        <a href="register.html">Register now</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="../js/auth/login.js"></script>
+
+</body>
+</html>
