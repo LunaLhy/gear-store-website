@@ -22,7 +22,7 @@ if(logoutBtn){
 }
 
 // Admin
-const user = JSON.parse(localStorage.getItem("user"));
+const currentUser = JSON.parse(localStorage.getItem("user"));
 
 const adminLink = document.getElementById("adminLink");
 

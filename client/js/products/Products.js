@@ -4,12 +4,9 @@ const user = JSON.parse(localStorage.getItem('user') || '{}');
 const isAdmin = user.isAdmin || false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lấy keyword từ URL (do searchProducts.js quăng sang)
     const urlParams = new URLSearchParams(window.location.search);
     const keywordFromUrl = urlParams.get('keyword') || ""; 
 
-    // 2. Gọi hàm fetch với keyword này
-    // Nếu keyword rỗng, fetchProducts() sẽ lấy hết sản phẩm như bình thường
     fetchProducts(keywordFromUrl); 
 
     // Các logic khác như Sort...
@@ -25,7 +22,6 @@ export async function fetchProducts(keyword = "") {
         let url = API_URL;
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Nếu không truyền keyword vào hàm, thì lấy từ URL (dành cho lúc vừa nhảy từ trang chủ sang)
         const finalKeyword = keyword || urlParams.get('keyword') || "";
         const category = urlParams.get('category');
 
@@ -39,7 +35,6 @@ export async function fetchProducts(keyword = "") {
         allProducts = await res.json(); 
         handleSortAndRender(); 
 
-        // (Bonus) Hiển thị lại từ khóa lên ô input cho người dùng biết mình đang tìm gì
         const searchInput = document.getElementById('searchInput');
         if (searchInput && finalKeyword) searchInput.value = finalKeyword;
 
@@ -77,7 +72,7 @@ function renderProducts(products) {
         const isOutOfStock = product.countInStock <= 0;
         const stockStatus = isOutOfStock 
             ? '<span class="status out-of-stock">Out of stock</span>' 
-            : '<span class="status in-stock">Còn hàng</span>';
+            : '<span class="status in-stock">In stock</span>';
 
         const adminButton = isAdmin ? `
             <button class="btn-manage" onclick="goToManagePage('${product._id}')">
