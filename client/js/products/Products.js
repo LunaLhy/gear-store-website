@@ -1,11 +1,18 @@
-const API_URL = 'http://localhost:5000/api/products';
+const API_URL = '/api/products';
 let allProducts = []; 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 const isAdmin = user.isAdmin || false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(); // Lấy data mặc định khi load trang
+    // 1. Lấy keyword từ URL (do searchProducts.js quăng sang)
+    const urlParams = new URLSearchParams(window.location.search);
+    const keywordFromUrl = urlParams.get('keyword') || ""; 
 
+    // 2. Gọi hàm fetch với keyword này
+    // Nếu keyword rỗng, fetchProducts() sẽ lấy hết sản phẩm như bình thường
+    fetchProducts(keywordFromUrl); 
+
+    // Các logic khác như Sort...
     const sortSelect = document.getElementById('sortSelect');
     if (sortSelect) {
         sortSelect.addEventListener('change', handleSortAndRender);
@@ -62,14 +69,14 @@ function renderProducts(products) {
     if (!container) return;
 
     if (products.length === 0) {
-        container.innerHTML = '<p class="empty-message">Không tìm thấy sản phẩm nào đúng ý Quốc Jack rồi!</p>';
+        container.innerHTML = '<p class="empty-message">San pham khong ton tai</p>';
         return;
     }
 
     container.innerHTML = products.map(product => {
         const isOutOfStock = product.countInStock <= 0;
         const stockStatus = isOutOfStock 
-            ? '<span class="status out-of-stock">Hết hàng</span>' 
+            ? '<span class="status out-of-stock">Out of stock</span>' 
             : '<span class="status in-stock">Còn hàng</span>';
 
         const adminButton = isAdmin ? `
