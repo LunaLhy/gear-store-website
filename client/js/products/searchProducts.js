@@ -1,21 +1,33 @@
-export function searchProducts(products, keyword) {
-  if (!keyword || keyword.trim() === "") {
-    return products;
-  }
+import { fetchProducts } from './products.js';
 
-  const search = keyword.toLowerCase().trim();
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
 
-  return products.filter(product => {
-    const name = product.name?.toLowerCase() || "";
-    const brand = product.brand?.toLowerCase() || "";
-    const category = product.category?.toLowerCase() || "";
-    const description = product.description?.toLowerCase() || "";
+    if (searchBtn && searchInput) {
+        const handleSearch = () => {
+            const keyword = searchInput.value.trim();
+            
+            // Kiểm tra xem có đang ở trang products.html hay không
+            const isProductPage = window.location.pathname.includes('products.html');
 
-    return (
-      name.includes(search) ||
-      brand.includes(search) ||
-      category.includes(search) ||
-      description.includes(search)
-    );
-  });
-}
+            if (isProductPage) {
+                // Nếu đang ở trang products -> Gọi hàm fetch để lọc luôn
+                fetchProducts(keyword);
+            } else {
+                // Nếu đang ở trang chủ (index.html) -> Chuyển hướng sang trang products kèm keyword
+                if (keyword) {
+                    window.location.href = `products.html?keyword=${encodeURIComponent(keyword)}`;
+                } else {
+                    window.location.href = `products.html`;
+                }
+            }
+        };
+
+        searchBtn.addEventListener('click', handleSearch);
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    }
+});

@@ -1,4 +1,3 @@
-// Đường dẫn API Đăng ký của bạn (đổi port nếu Backend của bạn chạy port khác, ví dụ 5000)
 const API_REGISTER_URL = 'http://localhost:5000/api/users/register'; 
 
 document.addEventListener('DOMContentLoaded', () => {
