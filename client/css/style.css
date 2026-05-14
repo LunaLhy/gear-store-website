@@ -591,13 +591,11 @@ body {
   display:flex;
   align-items:center;
   gap:10px;
-  color:white;
+  color:rgb(252, 166, 53);
   font-weight:bold;
 }
 
-.user-box i{
-  color:#ff9900;
-}
+
 
 #logoutBtn{
   border:none;
@@ -612,4 +610,47 @@ body {
 #logoutBtn:hover{
   background:#ff6600;
   color:white;
+}
+
+.admin-badge {
+    background-color: #ff4757;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px; /* Nhỏ lại một chút nhìn sẽ tinh tế hơn */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 5px;
+    display: inline-block;
+    box-shadow: 0 0 8px rgba(255, 71, 87, 0.4); /* Hiệu ứng phát sáng nhẹ */
+}
+
+#userName {
+    font-weight: 600;
+    color: #dcdfe6;
+}
+
+/* Style cho link Quản lý của Admin */
+#adminLink {
+    background-color: #21a12c; /* Màu tối sang trọng cho Admin */
+    color: #ffffff !important;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+#adminLink:hover {
+    background-color: #57606f;
+    border-color: #ffffff;
+}
+
+/* Căn chỉnh lại cụm user-box cho các thành phần đều nhau */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Khoảng cách giữa Tên - Tag Admin - Quản lý - Logout */
 }

@@ -1,64 +1,42 @@
-const user = JSON.parse(localStorage.getItem("user"));
-const loginLink = document.getElementById("loginLink");
-const registerLink = document.getElementById("registerLink");
-const userBox = document.getElementById("userBox");
-const userName = document.getElementById("userName");
-const logoutBtn = document.getElementById("logoutBtn");
+document.addEventListener('DOMContentLoaded', () => {
+    const userBox = document.getElementById('userBox');
+    const userName = document.getElementById('userName');
+    const adminBadge = document.getElementById('adminBadge');
+    const adminLink = document.getElementById('adminLink');
+    const loginLink = document.getElementById('loginLink');
+    const registerLink = document.getElementById('registerLink');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-if(user){
-    loginLink.style.display = "none";
-    registerLink.style.display = "none";
-    userBox.style.display = "flex";
-    userName.innerText = user.name;
-}
+    const userData = localStorage.getItem('user');
+    console.log("1. Dữ liệu thô từ LocalStorage:", userData);
 
-// logout
-if(logoutBtn){
-    logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-    });
-}
+    if (userData) {
+        const user = JSON.parse(userData);
+        console.log("2. Dữ liệu sau khi Parse:", user);
+        console.log("3. Kiểm tra isAdmin:", user.isAdmin, "Kiểu dữ liệu:", typeof user.isAdmin);
 
-// Admin
-const currentUser = JSON.parse(localStorage.getItem("user"));
+        if (user.name) {
+            // Hiện UserBox, ẩn Login/Register
+            if (userBox) userBox.style.display = 'flex';
+            if (loginLink) loginLink.style.display = 'none';
+            if (registerLink) registerLink.style.display = 'none';
+            if (userName) userName.innerText = `Hi, ${user.name}`;
 
-const adminLink = document.getElementById("adminLink");
+            // Kiểm tra Admin (Chấp cả kiểu string lẫn kiểu boolean)
+            if (user.isAdmin === true || user.isAdmin === 'true') {
+                console.log("=> ĐÃ XÁC NHẬN ADMIN! ĐANG HIỆN TAG...");
+                if (adminBadge) adminBadge.style.setProperty('display', 'inline-block', 'important');
+                if (adminLink) adminLink.style.setProperty('display', 'inline-block', 'important');
+            } else {
+                console.log("=> KHÔNG PHẢI ADMIN HOẶC SAI BIẾN isAdmin");
+            }
+        }
+    }
 
-if (user && user.role === "admin") {
-    adminLink.style.display = "inline-block";
-} else {
-    adminLink.style.display = "none";
-}
-// Gear Store
-const user = JSON.parse(localStorage.getItem("user"));
-
-const loginLink = document.getElementById("loginLink");
-const registerLink = document.getElementById("registerLink");
-const userBox = document.getElementById("userBox");
-const userName = document.getElementById("userName");
-const logoutBtn = document.getElementById("logoutBtn");
-const adminLink = document.getElementById("adminLink");
-
-if (user) {
-  if (loginLink) loginLink.style.display = "none";
-  if (registerLink) registerLink.style.display = "none";
-
-  if (userBox) userBox.style.display = "flex";
-  if (userName) userName.innerText = user.name;
-
-  if (adminLink && user.role === "admin") {
-    adminLink.style.display = "inline-block";
-  }
-} else {
-  if (adminLink) adminLink.style.display = "none";
-}
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    window.location.href = "login.html";
-  });
-}
+    if (logoutBtn) {
+        logoutBtn.onclick = () => {
+            localStorage.removeItem('user');
+            window.location.href = '/index.html';
+        };
+    }
+});
