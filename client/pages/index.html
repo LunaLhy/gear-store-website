@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="../css/product.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
+<script type="module" src="../js/main.js"></script>
 <body>
 
     <header class="header">
-        <div class="logo">GearStore</div>
+        <a href="index.html" class="logo">GearStore</a>
 
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search products..." />
@@ -20,27 +21,18 @@
         </div>
 
         <nav class="nav">
-        <a href="login.html" id="loginLink">
-            Login
-        </a>
+            <a href="products.html">Products</a>                
+            <a href="login.html" id="loginLink">Login</a>
+            <a href="register.html" id="registerLink">Register</a>
 
-        <a href="register.html" id="registerLink">
-            Register
-        </a>
+            <div id="userBox" class="user-box" style="display:none;">
+                <i class="fa-solid fa-user"></i>
+                <span id="userName"></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
 
-    <div id="userBox" class="user-box" style="display: none;">
-        <i class="fa-solid fa-user"></i>
-        <span id="userName"></span>
-        <button id="logoutBtn">
-            Logout
-        </button>
-    </div>
-
-    <a href="addProduct.html" id="adminLink" style="display:none;">
-        Admin
-    </a>
-
-</nav>
+            <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+        </nav>
     </header>
 
     <section class="hero">

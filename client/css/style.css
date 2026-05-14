@@ -28,6 +28,11 @@ body {
   color: #ff9900;
   font-size: 28px;
   font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.logo:hover {
+  color: #ff6600;
 }
 
 /* SEARCH */

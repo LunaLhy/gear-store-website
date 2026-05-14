@@ -11,28 +11,28 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
 </head>
-
+<script type="module" src="../js/main.js"></script>
 <body>
 
     <header class="header">
-        <div class="logo">GearStore</div>
+        <a href="index.html" class="logo">GearStore</a>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search products..." />
             <button id="searchBtn">🔍</button>
         </div>
 
         <nav class="nav">
-            <a href="index.html">Home</a>
             <a href="products.html">Products</a>
-            <a href="login.html">Login</a>
-            <a href="register.html">Register</a>
-            <div id="userBox" class="user-box" style="display: none;">
+            <a href="login.html" id="loginLink">Login</a>
+            <a href="register.html" id="registerLink">Register</a>
+
+            <div id="userBox" class="user-box" style="display:none;">
                 <i class="fa-solid fa-user"></i>
                 <span id="userName"></span>
                 <button id="logoutBtn">Logout</button>
             </div>
 
-            <a href="addProduct.html" id="adminLink" style="display:none;">Admin</a>
+            <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
         </nav>
     </header>
 
@@ -86,6 +86,8 @@
         </div>
     </footer>
 
+    <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/products/Products.js"></script>
 </body>
 </html>
+
