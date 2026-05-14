@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Technology Store Project
 Cấu trúc thư mục
 client/: Giao diện người dùng (Sử dụng HTML, CSS, JS).

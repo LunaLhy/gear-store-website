@@ -1,11 +1,15 @@
-const API_URL = 'http://localhost:5000/api/products';
+const API_URL = '/api/products';
 let allProducts = []; 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 const isAdmin = user.isAdmin || false;
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(); // Lấy data mặc định khi load trang
+    const urlParams = new URLSearchParams(window.location.search);
+    const keywordFromUrl = urlParams.get('keyword') || ""; 
 
+    fetchProducts(keywordFromUrl); 
+
+    // Các logic khác như Sort...
     const sortSelect = document.getElementById('sortSelect');
     if (sortSelect) {
         sortSelect.addEventListener('change', handleSortAndRender);
@@ -18,7 +22,6 @@ export async function fetchProducts(keyword = "") {
         let url = API_URL;
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Nếu không truyền keyword vào hàm, thì lấy từ URL (dành cho lúc vừa nhảy từ trang chủ sang)
         const finalKeyword = keyword || urlParams.get('keyword') || "";
         const category = urlParams.get('category');
 
@@ -32,7 +35,6 @@ export async function fetchProducts(keyword = "") {
         allProducts = await res.json(); 
         handleSortAndRender(); 
 
-        // (Bonus) Hiển thị lại từ khóa lên ô input cho người dùng biết mình đang tìm gì
         const searchInput = document.getElementById('searchInput');
         if (searchInput && finalKeyword) searchInput.value = finalKeyword;
 
@@ -62,15 +64,15 @@ function renderProducts(products) {
     if (!container) return;
 
     if (products.length === 0) {
-        container.innerHTML = '<p class="empty-message">Không tìm thấy sản phẩm nào đúng ý Quốc Jack rồi!</p>';
+        container.innerHTML = '<p class="empty-message">San pham khong ton tai</p>';
         return;
     }
 
     container.innerHTML = products.map(product => {
         const isOutOfStock = product.countInStock <= 0;
         const stockStatus = isOutOfStock 
-            ? '<span class="status out-of-stock">Hết hàng</span>' 
-            : '<span class="status in-stock">Còn hàng</span>';
+            ? '<span class="status out-of-stock">Out of stock</span>' 
+            : '<span class="status in-stock">In stock</span>';
 
         const adminButton = isAdmin ? `
             <button class="btn-manage" onclick="goToManagePage('${product._id}')">
