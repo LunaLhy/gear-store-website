@@ -17,9 +17,9 @@ body {
 
   background: linear-gradient(
     135deg,
-    #b06cff,
-    #6f8cff,
-    #54d6c9
+    #a87920,
+    #b47832,
+    #eb7b12
   );
 }
 
@@ -115,7 +115,7 @@ body {
 }
 
 .input-box i {
-  color: #7c3aed;
+  color: #eda53a;
   font-size: 20px;
 }
 
@@ -140,8 +140,8 @@ body {
 
   background: linear-gradient(
     135deg,
-    #7c3aed,
-    #3b82f6
+    #ed903a,
+    #f6b53b
   );
 
   color: white;
@@ -161,7 +161,7 @@ body {
 .register-btn:hover {
   transform: translateY(-3px);
 
-  box-shadow: 0 10px 25px rgba(59,130,246,0.35);
+  box-shadow: 0 10px 25px #f6863b59;
 }
 
 /* LOGIN */
@@ -175,7 +175,7 @@ body {
 }
 
 .login-link a {
-  color: #7c3aed;
+  color: hsl(27, 83%, 58%);
   text-decoration: none;
   font-weight: bold;
 }
