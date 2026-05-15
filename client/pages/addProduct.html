@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Add Product - GearStore</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/addProduct.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+</head>
+
+<body>
+
+  <main class="add-page">
+
+    <section class="add-header">
+      <div>
+        <h1>Add Product</h1>
+        <p>Create a new product for GearStore.</p>
+      </div>
+
+      <a href="managerProducts.html" class="back-btn">
+        Back to Manager
+      </a>
+    </section>
+
+    <section class="add-card">
+
+      <div class="image-preview">
+        <img id="previewImage" src="" alt="Product Preview" />
+        <p id="previewText">Image preview</p>
+      </div>
+
+      <form id="addProductForm" class="add-form">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name" required />
+          </div>
+
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" id="brand" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Main Image URL</label>
+          <input type="text" id="image" required />
+        </div>
+
+        <div class="form-group">
+          <label>Images</label>
+          <textarea
+            id="images"
+            placeholder="Mỗi link ảnh một dòng"
+          ></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" id="price" required />
+          </div>
+
+          <div class="form-group">
+            <label>Count In Stock</label>
+            <input type="number" id="countInStock" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" id="category" required />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="description" required></textarea>
+        </div>
+
+        <button type="submit" class="add-submit-btn">
+          <i class="fa-solid fa-plus"></i>
+          Add Product
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="../js/products/adminProduct.js"></script>
+
+</body>
+</html>

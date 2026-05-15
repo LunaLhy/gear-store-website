@@ -2,25 +2,24 @@ body {
   background: #f4f4f4;
 }
 
-.detail-page {
+.add-page {
   width: 88%;
   margin: 40px auto;
 }
 
-.detail-header {
+.add-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin-bottom: 28px;
 }
 
-.detail-header h1 {
+.add-header h1 {
   font-size: 38px;
   color: #111827;
 }
 
-.detail-header p {
+.add-header p {
   color: #666;
   margin-top: 6px;
 }
@@ -28,14 +27,10 @@ body {
 .back-btn {
   background: var(--orange);
   color: white;
-
   padding: 12px 18px;
-
   border-radius: 10px;
-
   text-decoration: none;
   font-weight: 700;
-
   transition: 0.3s ease;
 }
 
@@ -44,40 +39,41 @@ body {
   transform: translateY(-3px);
 }
 
-.detail-card {
+.add-card {
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 35px;
-
   background: white;
-
   padding: 35px;
-
   border-radius: 20px;
-
   box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .image-preview {
   background: #f8f8f8;
-
   border-radius: 18px;
-
+  min-height: 360px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  min-height: 360px;
+  gap: 14px;
+  padding: 20px;
 }
 
 .image-preview img {
   width: 100%;
-  height: 330px;
-
+  height: 300px;
   object-fit: contain;
+  display: none;
 }
 
-.detail-form {
+.image-preview p {
+  color: #777;
+  font-weight: 600;
+}
+
+.add-form {
   display: flex;
   flex-direction: column;
 }
@@ -91,13 +87,11 @@ body {
 .form-group {
   display: flex;
   flex-direction: column;
-
   margin-bottom: 20px;
 }
 
 .form-group label {
   margin-bottom: 8px;
-
   font-weight: 700;
   color: #232f3e;
 }
@@ -105,12 +99,9 @@ body {
 .form-group input,
 .form-group textarea {
   padding: 14px;
-
   border: 1px solid #ddd;
   border-radius: 10px;
-
   outline: none;
-
   font-size: 15px;
 }
 
@@ -125,52 +116,25 @@ body {
   box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.18);
 }
 
-.detail-actions {
-  display: flex;
-  gap: 16px;
-
-  margin-top: 10px;
-}
-
-.save-btn,
-.delete-btn {
-  flex: 1;
-
+.add-submit-btn {
+  width: 100%;
   border: none;
-
   padding: 15px;
-
   border-radius: 12px;
-
+  background: #16a34a;
   color: white;
-
   font-weight: 700;
-
   cursor: pointer;
-
   transition: 0.3s ease;
 }
 
-.save-btn {
-  background: #2563eb;
-}
-
-.save-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-3px);
-}
-
-.delete-btn {
-  background: #ef4444;
-}
-
-.delete-btn:hover {
-  background: #dc2626;
+.add-submit-btn:hover {
+  background: #15803d;
   transform: translateY(-3px);
 }
 
 @media (max-width: 900px) {
-  .detail-card {
+  .add-card {
     grid-template-columns: 1fr;
   }
 
@@ -178,7 +142,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .detail-header {
+  .add-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;

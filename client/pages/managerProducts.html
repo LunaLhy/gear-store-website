@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Manager Products - GearStore</title>
+  <title>Manager Products</title>
 
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/managerProducts.css" />
@@ -54,6 +54,72 @@
     </div>
 
   </main>
+
+  <!-- EDIT MODAL -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>Edit Product</h2>
+        <button id="closeModalBtn" class="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="editProductForm">
+
+        <input type="hidden" id="editProductId" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="editName" required />
+          </div>
+
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" id="editBrand" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Main Image URL</label>
+          <input type="text" id="editImage" required />
+        </div>
+
+        <div class="form-group">
+          <label>Images</label>
+          <textarea id="editImages" placeholder="Mỗi link ảnh một dòng"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" id="editPrice" required />
+          </div>
+
+          <div class="form-group">
+            <label>Count In Stock</label>
+            <input type="number" id="editCountInStock" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" id="editCategory" required />
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="editDescription" required></textarea>
+        </div>
+
+        <button type="submit" class="save-btn">
+          Save Changes
+        </button>
+
+      </form>
+    </div>
+  </div>
 
   <script src="../js/products/managerProducts.js"></script>
 
