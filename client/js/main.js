@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const user = JSON.parse(localStorage.getItem("user"));
 
 const loginLink = document.getElementById("loginLink");
@@ -57,7 +56,6 @@ if (logoutBtn) {
   });
 
 }
-=======
 document.addEventListener('DOMContentLoaded', () => {
     const userBox = document.getElementById('userBox');
     const userName = document.getElementById('userName');
@@ -100,4 +98,3 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
->>>>>>> 26b339536fdd5a170a4a926c019eb8d86c0ac885
