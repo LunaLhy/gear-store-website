@@ -13,7 +13,10 @@
 <body>
 
     <header class="header">
-        <a href="index.html" class="logo">GearStore</a>
+        <a href="index.html" class="logo main-logo">
+            <img src="../assets/logo.png" alt="GearStore Logo" />
+            <span>GearStore</span>
+        </a>
 
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search products..." />
@@ -21,17 +24,20 @@
         </div>
 
         <nav class="nav">
-            <a href="products.html">Products</a>                
+            <a href="products.html">Products</a>
+            
             <a href="login.html" id="loginLink">Login</a>
             <a href="register.html" id="registerLink">Register</a>
 
             <div id="userBox" class="user-box" style="display:none;">
                 <i class="fa-solid fa-user"></i>
                 <span id="userName"></span>
+                
+                <span id="adminBadge" class="admin-badge" style="display:none;">Admin</span>
+                
+                <a href="addProduct.html" id="adminLink" style="display:none;">Add Product</a>
                 <button id="logoutBtn">Logout</button>
             </div>
-
-            <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
         </nav>
     </header>
 

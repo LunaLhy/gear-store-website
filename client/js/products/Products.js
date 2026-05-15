@@ -76,7 +76,7 @@ function renderProducts(products) {
 
         const adminButton = isAdmin ? `
             <button class="btn-manage" onclick="goToManagePage('${product._id}')">
-                <i class="fa-solid fa-gear"></i> Quản lý
+                <i class="fa-solid fa-gear"></i> Manage Product
             </button>` : '';
 
         return `
@@ -93,7 +93,7 @@ function renderProducts(products) {
                     <p class="price">${product.price.toLocaleString('vi-VN')} đ</p>
                     <div class="product-actions">
                         <button class="btn-buy" ${isOutOfStock ? 'disabled' : ''}>
-                            <i class="fa-solid fa-cart-shopping"></i> Mua ngay
+                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                         </button>
                         ${adminButton}
                     </div>

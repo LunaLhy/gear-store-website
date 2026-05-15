@@ -1,4 +1,4 @@
-const API_REGISTER_URL = 'http://api/users/register'; 
+const API_REGISTER_URL = '/api/users/register'; 
 
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm');
