@@ -1,0 +1,135 @@
+body {
+  background: #f4f4f4;
+}
+
+.manager-container {
+  width: 90%;
+  margin: 40px auto;
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.manager-header h1 {
+  font-size: 38px;
+  color: #111827;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.add-btn,
+.back-btn {
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.add-btn {
+  background: #16a34a;
+}
+
+.add-btn:hover {
+  background: #15803d;
+  transform: translateY(-3px);
+}
+
+.back-btn {
+  background: var(--orange);
+}
+
+.back-btn:hover {
+  background: var(--orange-hover);
+  transform: translateY(-3px);
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #111827;
+  color: white;
+}
+
+th,
+td {
+  padding: 18px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+tbody tr:hover {
+  background: #fafafa;
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.stock {
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.out-stock {
+  color: #dc2626;
+}
+
+.edit-btn,
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.edit-btn {
+  background: #2563eb;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.delete-btn {
+  background: #ef4444;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-3px);
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Manager Products - GearStore</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/managerProducts.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+</head>
+
+<body>
+
+  <main class="manager-container">
+
+    <div class="manager-header">
+      <h1>Manager Products</h1>
+
+      <div class="header-actions">
+        <a href="addProduct.html" class="add-btn">
+          <i class="fa-solid fa-plus"></i>
+          Add Product
+        </a>
+
+        <a href="index.html" class="back-btn">
+          Back Home
+        </a>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+
+        <tbody id="productTableBody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script src="../js/products/managerProducts.js"></script>
+
+</body>
+</html>

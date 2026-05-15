@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (res.ok) {
                     localStorage.setItem('user', JSON.stringify(data));
                     
-                    alert('Redirecting to main menu...');
-
                     window.location.href = '/index.html'; 
                 } else {
                     alert(data.message || 'wrong email or password');

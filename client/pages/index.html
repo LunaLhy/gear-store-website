@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="../css/product.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
-<script type="module" src="../js/main.js"></script>
-<script src="../js/components/navbar.js"></script>
 <body>
-
 <header class="header">
     <a href="index.html" class="logo main-logo">
         <img src="../assets/logo.png" alt="GearStore Logo" />
@@ -26,45 +23,36 @@
         </button>
     </div>
 
-    <nav class="nav">
-        <a href="cart.html" class="cart-link">
-            <i class="fa-solid fa-cart-shopping"></i>
-        </a>
+<nav class="nav">
+  <a href="cart.html" class="cart-link">
+    <i class="fa-solid fa-cart-shopping"></i>
+  </a>
 
-        <a href="login.html" id="loginLink" class="login-btn">
-            <i class="fa-regular fa-circle-user"></i>
-            <span>Log in</span>
-        </a>
+  <a href="login.html" id="loginLink" class="login-btn">
+    <i class="fa-regular fa-circle-user"></i>
+    <span>Log in</span>
+  </a>
 
-        <div id="userBox" class="user-box" style="display:none;">
-            <button id="accountBtn" class="account-btn">
-                <i class="fa-solid fa-user"></i>
+  <div id="userBox" class="user-box" style="display:none;">
+    <button id="accountBtn" class="account-btn">
+      <i class="fa-solid fa-user"></i>
+      <span id="userName"></span>
 
-                <span id="userName"></span>
+      <span id="adminBadge" class="admin-badge" style="display:none;">
+        ADMIN
+      </span>
 
-                <span id="adminBadge" class="admin-badge" style="display:none;">
-                    Admin
-                </span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
 
-                <i class="fa-solid fa-chevron-down"></i>
-            </button>
-
-        <div id="accountDropdown" class="account-dropdown">
-            <a href="addProduct.html" class="admin-only">
-                Add Product
-            </a>
-
-            <a href="managerProducts.html" class="admin-only">
-                Manager Products
-            </a>
-
-            <button id="logoutBtn">
-                Logout
-            </button>
-        </div>
+    <div id="accountDropdown" class="account-dropdown">
+      <a href="addProduct.html" class="admin-only">Add Product</a>
+      <a href="managerProducts.html" class="admin-only">Manager Products</a>
+      <button id="logoutBtn">Logout</button>
     </div>
+  </div>
 </nav>
-           </header>
+</header>
 
     <section class="hero">
         <div class="hero-overlay"></div>
@@ -149,7 +137,7 @@
     </footer>
 
     <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/components/navabar.js"></script>
+    <script type="module" src="/js/components/navbar.js"></script>
     <script type="module" src="/js/products/Products.js"></script>
     <script type="module" src="/js/products/searchProducts.js"></script>
 </body>
