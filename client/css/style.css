@@ -1,8 +1,8 @@
 /* client/css/style.css */
 
 :root {
-  --orange: #ff9900;
-  --orange-hover: #ff6600;
+  --orange: #f4a261;
+  --orange-hover: #e58b3d;
   --dark: #131921;
   --dark-2: #0f1724;
   --text: #111;
@@ -52,10 +52,11 @@ body {
 .logo,
 .main-logo {
   color: var(--orange);
-  font-size: 28px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: var(--smooth);
+
+  font-size: 40px;
+  font-weight: 800;
+
+  letter-spacing: -1px;
 }
 
 .logo:hover,
@@ -66,12 +67,15 @@ body {
 .main-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
 
+  gap: 8px;
+
+  text-decoration: none;
+}
 .main-logo img {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
+
   object-fit: contain;
 }
 
@@ -96,12 +100,23 @@ body {
 
 .search-box button {
   width: 58px;
+
   border: none;
-  background: var(--orange);
-  font-size: 20px;
+
+    background: var(--orange);
+
+  color: white;
+
+  font-size: 18px;
+
   cursor: pointer;
+
+  transition: 0.3s ease;
 }
 
+.search-box button:hover {
+  background: #ff7b00;
+}
 /* NAV */
 
 .nav {
@@ -614,4 +629,95 @@ body {
   .categories-row {
     grid-template-columns: 1fr;
   }
+}
+/* client/css/navbar.css */
+.cart-link,
+.login-btn,
+.account-btn {
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+
+  border: none;
+  cursor: pointer;
+  transition: var(--smooth);
+}
+
+.cart-link {
+  width: 48px;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.cart-link:hover,
+.login-btn:hover,
+.account-btn:hover {
+  color: var(--orange);
+  background: rgba(255,255,255,0.15);
+  transform: var(--hover-up);
+}
+
+.user-box {
+  position: relative;
+}
+
+.account-dropdown {
+  display: none;
+
+  position: absolute;
+  top: 58px;
+  right: 0;
+
+  width: 210px;
+  background: #1b1f2a;
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow: var(--shadow-soft);
+  z-index: 2000;
+}
+
+.account-dropdown.show {
+  display: block;
+}
+
+.account-dropdown a,
+.account-dropdown button {
+  width: 100%;
+  padding: 14px 16px;
+
+  border: none;
+  background: transparent;
+  color: white;
+
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.account-dropdown a:hover,
+.account-dropdown button:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--orange);
+}
+
+.admin-badge {
+  background: #ff4757;
+  color: white;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
 }

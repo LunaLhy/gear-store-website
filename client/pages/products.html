@@ -12,41 +12,63 @@
     />
 </head>
 <script type="module" src="../js/main.js"></script>
+<script src="../js/components/navbar.js"></script>
 <body>
 
     <header class="header">
-        <a href="index.html" class="logo">GearStore</a>
+        <a href="index.html" class="logo">Gear Store</a>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search products..." />
-            <button id="searchBtn">🔍</button>
+            <button id="searchBtn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
         </div>
 
-        <nav class="nav">
-            <a href="products.html">Products</a>
-            <a href="login.html" id="loginLink">Login</a>
-            <a href="register.html" id="registerLink">Register</a>
+    <nav class="nav">
+        <a href="cart.html" class="cart-link">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
 
-            <div id="userBox" class="user-box" style="display:none;">
+        <a href="login.html" id="loginLink" class="login-btn">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Log in</span>
+        </a>
+
+        <div id="userBox" class="user-box" style="display:none;">
+            <button id="accountBtn" class="account-btn">
                 <i class="fa-solid fa-user"></i>
                 <span id="userName"></span>
-                
-                <span id="adminBadge" class="admin-badge" style="display:none;">Admin</span>
-                
-                <a href="addProduct.html" id="adminLink" style="display:none;">Add Product</a>
-                <button id="logoutBtn">Logout</button>
-            </div>
+                <span id="adminBadge" class="admin-badge" style="display:none;">
+                    Admin
+                </span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
 
-        </nav>
+        <div id="accountDropdown" class="account-dropdown">
+            <a href="addProduct.html" class="admin-only">
+                Add Product
+            </a>
+
+            <a href="managerProducts.html" class="admin-only">
+                Manager Products
+            </a>
+
+            <button id="logoutBtn">
+                Logout
+            </button>
+        </div>
+    </div>
+</nav>
     </header>
 
     <section class="product-toolbar">
         <h2>All Products</h2>
 
         <select id="sortSelect">
-            <option value="default">Sắp xếp theo</option>
-            <option value="price-asc">Giá tăng dần</option>
-            <option value="price-desc">Giá giảm dần</option>
-            <option value="name-asc">Tên A-Z</option>
+            <option value="default">Sort By</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name-asc">Name: A to Z</option>
         </select>
     </section>
 

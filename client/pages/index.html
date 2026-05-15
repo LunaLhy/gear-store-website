@@ -10,37 +10,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <script type="module" src="../js/main.js"></script>
+<script src="../js/components/navbar.js"></script>
 <body>
 
-    <header class="header">
-        <a href="index.html" class="logo main-logo">
-            <img src="../assets/logo.png" alt="GearStore Logo" />
-            <span>GearStore</span>
+<header class="header">
+    <a href="index.html" class="logo main-logo">
+        <img src="../assets/logo.png" alt="GearStore Logo" />
+        <span>Gear Store</span>
+    </a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search products..." />
+        <button id="searchBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+
+    <nav class="nav">
+        <a href="cart.html" class="cart-link">
+            <i class="fa-solid fa-cart-shopping"></i>
         </a>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search products..." />
-            <button id="searchBtn">🔍</button>
-        </div>
+        <a href="login.html" id="loginLink" class="login-btn">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Log in</span>
+        </a>
 
-        <nav class="nav">
-            <a href="cart.html" class="cart-link">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </a>
-            <a href="login.html" id="loginLink">Login</a>
-            <a href="register.html" id="registerLink">Register</a>
-
-            <div id="userBox" class="user-box" style="display:none;">
+        <div id="userBox" class="user-box" style="display:none;">
+            <button id="accountBtn" class="account-btn">
                 <i class="fa-solid fa-user"></i>
+
                 <span id="userName"></span>
-                
-                <span id="adminBadge" class="admin-badge" style="display:none;">Admin</span>
-                
-                <a href="addProduct.html" id="adminLink" style="display:none;">Add Product</a>
-                <button id="logoutBtn">Logout</button>
-            </div>
-        </nav>
-    </header>
+
+                <span id="adminBadge" class="admin-badge" style="display:none;">
+                    Admin
+                </span>
+
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+        <div id="accountDropdown" class="account-dropdown">
+            <a href="addProduct.html" class="admin-only">
+                Add Product
+            </a>
+
+            <a href="managerProducts.html" class="admin-only">
+                Manager Products
+            </a>
+
+            <button id="logoutBtn">
+                Logout
+            </button>
+        </div>
+    </div>
+</nav>
+           </header>
 
     <section class="hero">
         <div class="hero-overlay"></div>
@@ -125,6 +149,7 @@
     </footer>
 
     <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/components/navabar.js"></script>
     <script type="module" src="/js/products/Products.js"></script>
     <script type="module" src="/js/products/searchProducts.js"></script>
 </body>
