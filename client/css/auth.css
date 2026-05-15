@@ -14,13 +14,14 @@ body {
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(
-    135deg,
-    #f7efb8 0%,
-    #f6dcc7 38%,
-    #efc5dd 72%,
-    #e4a9ea 100%
-  );
+  background:
+    linear-gradient(
+      180deg,
+      #b65d1d 0%,
+      #cf712d 35%,
+      #e48747 70%,
+      #f1a36b 100%
+    );
 
   overflow: hidden;
 }
@@ -231,12 +232,13 @@ body {
 
   border: none;
 
-  background: linear-gradient(
-    135deg,
-    #f6c453,
-    #f59e0b,
-    #ee7fc8
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #ffb347,
+      #ff8c42,
+      #ff7a1a
+    );
 
   color: white;
 
