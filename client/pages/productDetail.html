@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Product Detail - Gear Store</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/productDetail.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+</head>
+
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo main-logo">
+      <img src="../assets/logo.png" alt="GearStore Logo" />
+      <span>Gear Store</span>
+    </a>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+
+      <button id="searchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+
+    <nav class="nav">
+      <a href="cart.html" class="cart-link">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+
+      <a href="login.html" id="loginLink" class="login-btn">
+        <i class="fa-regular fa-circle-user"></i>
+        <span>Log in</span>
+      </a>
+
+      <div id="userBox" class="user-box" style="display:none;">
+        <button id="accountBtn" class="account-btn">
+          <i class="fa-solid fa-user"></i>
+          <span id="userName"></span>
+
+          <span id="adminBadge" class="admin-badge" style="display:none;">
+            ADMIN
+          </span>
+
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div id="accountDropdown" class="account-dropdown">
+          <a href="addProduct.html" class="admin-only">Add Product</a>
+          <a href="managerProducts.html" class="admin-only">Manager Products</a>
+          <button id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="detail-container">
+
+    <section class="detail-card">
+
+      <div class="detail-left">
+        <div class="main-image-box">
+          <img id="mainImage" src="" alt="Product Image" />
+        </div>
+
+        <div id="thumbnailList" class="thumbnail-list"></div>
+      </div>
+
+      <div class="detail-right">
+        <h1 id="productName"></h1>
+
+        <p class="brand-line">
+          Brand: <span id="productBrand"></span>
+        </p>
+
+        <div class="price-box">
+          <h2 id="productPrice"></h2>
+        </div>
+
+        <p id="productStock" class="stock-detail"></p>
+
+        <div class="description-box">
+          <h3>Mô tả sản phẩm</h3>
+          <p id="productDescription"></p>
+        </div>
+
+        <p class="category-line">
+          Category: <span id="productCategory"></span>
+        </p>
+
+        <div class="detail-actions">
+          <button id="addCartBtn" class="detail-cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Add to Cart
+          </button>
+
+          <button id="buyNowBtn" class="buy-now-btn">
+            <i class="fa-solid fa-bolt"></i>
+            Buy Now
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="../js/components/navbar.js"></script>
+  <script type="module" src="../js/products/searchProducts.js"></script>
+  <script src="../js/products/productDetail.js"></script>
+
+</body>
+</html>

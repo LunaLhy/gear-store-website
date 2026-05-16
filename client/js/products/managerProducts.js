@@ -7,7 +7,6 @@ const tableBody = document.getElementById("productTableBody");
 const editModal = document.getElementById("editModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const editProductForm = document.getElementById("editProductForm");
-
 let allProducts = [];
 
 async function loadProducts() {
@@ -207,3 +206,4 @@ async function deleteProduct(id) {
 }
 
 loadProducts();
+

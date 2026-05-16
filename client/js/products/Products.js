@@ -81,22 +81,31 @@ function renderProducts(products) {
 
         return `
             <div class="product-card">
-                <div class="product-img">
-                    ${stockStatus} 
-                    <img src="${product.image}" 
-                        onerror="this.src='https://placehold.co/600x400/2f3542/ffffff?text=GearStore'"
-                        alt="${product.name}">
-                </div>
-                <div class="product-info">
-                    <span class="brand-name">${product.brand}</span>
-                    <h3>${product.name}</h3>
-                    <p class="price">${product.price.toLocaleString('vi-VN')} đ</p>
-                    <div class="product-actions">
-                        <button class="btn-buy" ${isOutOfStock ? 'disabled' : ''}>
-                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                        </button>
-                        ${adminButton}
+                <div onclick="goToProductDetail('${product._id}')" class="product-click-area">
+                    <div class="product-img">
+                        ${stockStatus}
+                        <img
+                            src="${product.image}"
+                            onerror="this.src='https://placehold.co/600x400/2f3542/ffffff?text=GearStore'"
+                            alt="${product.name}"
+                        />
                     </div>
+
+                    <div class="product-info">
+                        <span class="brand-name">${product.brand}</span>
+                        <h3>${product.name}</h3>
+                        <p class="price">
+                            ${product.price.toLocaleString('vi-VN')} đ
+                        </p>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="btn-buy" ${isOutOfStock ? 'disabled' : ''}>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                        Add to Cart
+                    </button>
+                    ${adminButton}
                 </div>
             </div>
         `;
@@ -105,4 +114,8 @@ function renderProducts(products) {
 
 window.goToManagePage = function(id) {
     window.location.href = `editProduct.html?id=${id}`;
+};
+
+window.goToProductDetail = function(id) {
+  window.location.href = `productDetail.html?id=${id}`;
 };

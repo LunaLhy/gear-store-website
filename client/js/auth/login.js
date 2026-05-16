@@ -19,12 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
 
                 if (res.ok) {
-                    localStorage.setItem('user', JSON.stringify(data));
-                    
-                    window.location.href = '/index.html'; 
-                } else {
-                    alert(data.message || 'wrong email or password');
+                    localStorage.setItem("user", JSON.stringify(data));
+                    if (data.token) {
+                        localStorage.setItem("token", data.token);
+                    }
+                    window.location.href = "/index.html";
                 }
+
             } catch (error) {
                 console.error('Lỗi login:', error);
                 alert('Thu lai sau');
