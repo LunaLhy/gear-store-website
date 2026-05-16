@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Manager Products</title>
+  <title>Manager Products - Gear Store</title>
 
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/managerProducts.css" />
@@ -17,6 +17,56 @@
 
 <body>
 
+  <header class="header">
+    <a href="index.html" class="logo main-logo">
+      <img src="../assets/logo.png" alt="GearStore Logo" />
+      <span>Gear Store</span>
+    </a>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+
+      <button id="searchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+
+    <nav class="nav">
+      <a href="cart.html" class="cart-link">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+
+      <a href="login.html" id="loginLink" class="login-btn">
+        <i class="fa-regular fa-circle-user"></i>
+        <span>Log in</span>
+      </a>
+
+      <div id="userBox" class="user-box" style="display:none;">
+        <button id="accountBtn" class="account-btn">
+          <i class="fa-solid fa-user"></i>
+
+          <span id="userName"></span>
+
+          <span id="adminBadge" class="admin-badge" style="display:none;">
+            ADMIN
+          </span>
+
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div id="accountDropdown" class="account-dropdown">
+          <a href="managerProducts.html" class="admin-only">
+            Manager Products
+          </a>
+
+          <button id="logoutBtn">
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
   <main class="manager-container">
 
     <div class="manager-header">
@@ -26,10 +76,6 @@
         <a href="addProduct.html" class="add-btn">
           <i class="fa-solid fa-plus"></i>
           Add Product
-        </a>
-
-        <a href="index.html" class="back-btn">
-          Back Home
         </a>
       </div>
     </div>
@@ -58,15 +104,16 @@
   <!-- EDIT MODAL -->
   <div id="editModal" class="modal-overlay">
     <div class="modal-box">
+
       <div class="modal-header">
         <h2>Edit Product</h2>
+
         <button id="closeModalBtn" class="close-btn">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <form id="editProductForm">
-
         <input type="hidden" id="editProductId" />
 
         <div class="form-grid">
@@ -88,7 +135,10 @@
 
         <div class="form-group">
           <label>Images</label>
-          <textarea id="editImages" placeholder="Mỗi link ảnh một dòng"></textarea>
+          <textarea
+            id="editImages"
+            placeholder="Mỗi link ảnh một dòng"
+          ></textarea>
         </div>
 
         <div class="form-grid">
@@ -105,7 +155,14 @@
 
         <div class="form-group">
           <label>Category</label>
-          <input type="text" id="editCategory" required />
+          <select id="editCategory" required>
+            <option value="">Select category</option>
+            <option value="ban phim">Keyboard</option>
+            <option value="chuot">Mouse</option>
+            <option value="tai nghe">Headphone</option>
+            <option value="mic">Microphone</option>
+            <option value="other">Other</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -116,11 +173,16 @@
         <button type="submit" class="save-btn">
           Save Changes
         </button>
-
       </form>
+
     </div>
   </div>
 
+  <div id="toast"></div>
+
+  <script src="../js/components/navbar.js"></script>
+  <script type="module" src="../js/products/searchProducts.js"></script>
   <script src="../js/products/managerProducts.js"></script>
+
 </body>
 </html>
