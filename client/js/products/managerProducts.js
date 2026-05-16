@@ -1,4 +1,4 @@
-const API_PRODUCT_URL = "http://localhost:5000/api/products";
+const API_PRODUCT_URL = "/api/products";
 
 const token = localStorage.getItem("token");
 
