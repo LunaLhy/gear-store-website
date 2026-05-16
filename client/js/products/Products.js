@@ -1,5 +1,5 @@
-const API_URL = '/api/products';
-let allProducts = []; 
+const API_PRODUCT_URL =
+  `${window.location.origin}/api/products`;let allProducts = []; 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 const isAdmin = user.isAdmin || false;
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Thêm export để search.js xài được
 export async function fetchProducts(keyword = "") {
     try {
-        let url = API_URL;
+        let url = API_PRODUCT_URL;
         const urlParams = new URLSearchParams(window.location.search);
         
         const finalKeyword = keyword || urlParams.get('keyword') || "";
@@ -74,10 +74,7 @@ function renderProducts(products) {
             ? '<span class="status out-of-stock">Out of stock</span>' 
             : '<span class="status in-stock">In stock</span>';
 
-        const adminButton = isAdmin ? `
-            <button class="btn-manage" onclick="goToManagePage('${product._id}')">
-                <i class="fa-solid fa-gear"></i> Manage Product
-            </button>` : '';
+        const adminButton = "";
 
         return `
             <div class="product-card">

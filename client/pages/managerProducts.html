@@ -25,7 +25,6 @@
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search products..." />
-
       <button id="searchBtn">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
@@ -44,7 +43,6 @@
       <div id="userBox" class="user-box" style="display:none;">
         <button id="accountBtn" class="account-btn">
           <i class="fa-solid fa-user"></i>
-
           <span id="userName"></span>
 
           <span id="adminBadge" class="admin-badge" style="display:none;">
@@ -73,10 +71,10 @@
       <h1>Manager Products</h1>
 
       <div class="header-actions">
-        <a href="addProduct.html" class="add-btn">
+        <button id="openAddModalBtn" class="add-btn">
           <i class="fa-solid fa-plus"></i>
           Add Product
-        </a>
+        </button>
       </div>
     </div>
 
@@ -100,6 +98,92 @@
     </div>
 
   </main>
+
+  <!-- ADD MODAL -->
+  <div id="addModal" class="modal-overlay">
+    <div class="modal-box modal-box-wide">
+
+      <div class="modal-header">
+        <h2>Add Product</h2>
+
+        <button id="closeAddModalBtn" class="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-content-grid">
+
+        <div class="modal-image-preview">
+          <img id="addPreviewImage" src="" alt="Product Preview" />
+          <p id="addPreviewText">Image preview</p>
+        </div>
+
+        <form id="addProductForm">
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" id="addName" required />
+            </div>
+
+            <div class="form-group">
+              <label>Brand</label>
+              <input type="text" id="addBrand" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Main Image URL</label>
+            <input type="text" id="addImage" required />
+          </div>
+
+          <div class="form-group">
+            <label>Images</label>
+            <textarea
+              id="addImages"
+              placeholder="Mỗi link ảnh một dòng"
+            ></textarea>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="number" id="addPrice" required />
+            </div>
+
+            <div class="form-group">
+              <label>Count In Stock</label>
+              <input type="number" id="addCountInStock" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+
+            <select id="addCategory" required>
+              <option value="">Select category</option>
+              <option value="ban phim">Keyboard</option>
+              <option value="chuot">Mouse</option>
+              <option value="tai nghe">Headphone</option>
+              <option value="mic">Microphone</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="addDescription" required></textarea>
+          </div>
+
+          <button type="submit" class="save-btn">
+            Add Product
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
 
   <!-- EDIT MODAL -->
   <div id="editModal" class="modal-overlay">
@@ -155,6 +239,7 @@
 
         <div class="form-group">
           <label>Category</label>
+
           <select id="editCategory" required>
             <option value="">Select category</option>
             <option value="ban phim">Keyboard</option>

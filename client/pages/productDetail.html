@@ -54,8 +54,13 @@
         </button>
 
         <div id="accountDropdown" class="account-dropdown">
-          <a href="managerProducts.html" class="admin-only">Manager Products</a>
-          <button id="logoutBtn">Logout</button>
+          <a href="managerProducts.html" class="admin-only">
+            Manager Products
+          </a>
+
+          <button id="logoutBtn">
+            Logout
+          </button>
         </div>
       </div>
     </nav>
@@ -66,14 +71,27 @@
     <section class="detail-card">
 
       <div class="detail-left">
+
         <div class="main-image-box">
+
+          <button id="prevImageBtn" class="image-nav prev-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
           <img id="mainImage" src="" alt="Product Image" />
+
+          <button id="nextImageBtn" class="image-nav next-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
         </div>
 
         <div id="thumbnailList" class="thumbnail-list"></div>
+
       </div>
 
       <div class="detail-right">
+
         <h1 id="productName"></h1>
 
         <p class="brand-line">
@@ -106,6 +124,7 @@
             Buy Now
           </button>
         </div>
+
       </div>
 
     </section>

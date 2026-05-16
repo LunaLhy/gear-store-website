@@ -1,4 +1,5 @@
-const API_PRODUCT_URL = "http://localhost:5000/api/products";
+const API_PRODUCT_URL =
+  `${window.location.origin}/api/products`;
 
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
@@ -16,6 +17,12 @@ const productCategory = document.getElementById("productCategory");
 const addCartBtn = document.getElementById("addCartBtn");
 const buyNowBtn = document.getElementById("buyNowBtn");
 
+const prevImageBtn = document.getElementById("prevImageBtn");
+const nextImageBtn = document.getElementById("nextImageBtn");
+
+let productImages = [];
+let currentImageIndex = 0;
+
 if (!productId) {
   alert("Product not found");
   window.location.href = "products.html";
@@ -32,9 +39,12 @@ async function loadProductDetail() {
     const product = await response.json();
 
     renderProductDetail(product);
+
   } catch (error) {
     console.error(error);
+
     alert("Cannot load product detail");
+
     window.location.href = "products.html";
   }
 }
@@ -42,13 +52,17 @@ async function loadProductDetail() {
 function renderProductDetail(product) {
   productName.innerText = product.name;
   productBrand.innerText = product.brand;
-  productPrice.innerText = product.price.toLocaleString("vi-VN") + " đ";
+
+  productPrice.innerText =
+    product.price.toLocaleString("vi-VN") + " đ";
+
   productDescription.innerText = product.description;
-  productCategory.innerText = product.category;
 
-  mainImage.src = product.image;
+  productCategory.innerText =
+    formatCategory(product.category);
 
-  const isOutOfStock = product.countInStock <= 0;
+  const isOutOfStock =
+    product.countInStock <= 0;
 
   productStock.innerText = isOutOfStock
     ? "Out of stock"
@@ -61,40 +75,99 @@ function renderProductDetail(product) {
   addCartBtn.disabled = isOutOfStock;
   buyNowBtn.disabled = isOutOfStock;
 
-  const images =
+  productImages =
     product.images && product.images.length > 0
       ? [product.image, ...product.images]
       : [product.image];
 
-  thumbnailList.innerHTML = images
-    .map((img, index) => {
-      return `
-        <img
-          src="${img}"
-          class="${index === 0 ? "active" : ""}"
-          onclick="changeImage('${img}', this)"
-        />
-      `;
-    })
-    .join("");
+  currentImageIndex = 0;
+
+  renderImages();
 
   addCartBtn.onclick = () => {
     console.log("Add to cart:", product._id);
   };
 
   buyNowBtn.onclick = () => {
-    window.location.href = `checkout.html?id=${product._id}`;
+    window.location.href =
+      `checkout.html?id=${product._id}`;
   };
 }
 
-window.changeImage = function (imgUrl, element) {
-  mainImage.src = imgUrl;
+function renderImages() {
+  mainImage.src = productImages[currentImageIndex];
 
-  document
-    .querySelectorAll(".thumbnail-list img")
-    .forEach((img) => img.classList.remove("active"));
+  thumbnailList.innerHTML = productImages
+    .map((img, index) => {
+      return `
+        <img
+          src="${img}"
+          class="${index === currentImageIndex ? "active" : ""}"
+          onclick="changeImage(${index})"
+          alt="Product thumbnail"
+        />
+      `;
+    })
+    .join("");
 
-  element.classList.add("active");
+  updateArrowState();
+}
+
+window.changeImage = function(index) {
+  currentImageIndex = index;
+
+  renderImages();
 };
+
+function showPrevImage() {
+  currentImageIndex--;
+
+  if (currentImageIndex < 0) {
+    currentImageIndex = productImages.length - 1;
+  }
+
+  renderImages();
+}
+
+function showNextImage() {
+  currentImageIndex++;
+
+  if (currentImageIndex >= productImages.length) {
+    currentImageIndex = 0;
+  }
+
+  renderImages();
+}
+
+if (prevImageBtn) {
+  prevImageBtn.addEventListener("click", showPrevImage);
+}
+
+if (nextImageBtn) {
+  nextImageBtn.addEventListener("click", showNextImage);
+}
+
+function updateArrowState() {
+  const shouldShow =
+    productImages.length > 1;
+
+  prevImageBtn.style.display =
+    shouldShow ? "block" : "none";
+
+  nextImageBtn.style.display =
+    shouldShow ? "block" : "none";
+}
+
+function formatCategory(category) {
+  const categoryMap = {
+    "ban phim": "Keyboard",
+    "chuot": "Mouse",
+    "tai nghe": "Headphone",
+    "mic": "Microphone",
+    "other": "Other"
+  };
+
+  return categoryMap[category] || category;
+}
 
 loadProductDetail();

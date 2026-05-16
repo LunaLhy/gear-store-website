@@ -730,3 +730,29 @@ body {
   font-size: 10px;
   font-weight: bold;
 }
+
+/*navbar end*/
+@media (max-width: 900px) {
+  .header {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .main-logo {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-box {
+    width: 100%;
+    order: 3;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: center;
+    order: 2;
+  }
+}
