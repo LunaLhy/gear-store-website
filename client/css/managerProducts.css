@@ -150,7 +150,7 @@ tbody tr:hover {
 }
 
 .modal-box-wide {
-  width: 1050px;
+  width: 1120px;
 }
 
 .modal-header {
@@ -177,21 +177,27 @@ tbody tr:hover {
 
 .modal-content-grid {
   display: grid;
-  grid-template-columns: 330px 1fr;
+  grid-template-columns: 360px 1fr;
   gap: 28px;
 }
 
+.modal-image-area {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .modal-image-preview {
+  position: relative;
   background: #f8f8f8;
   border-radius: 18px;
   min-height: 420px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 14px;
   padding: 20px;
   border: 1px solid #eee;
+  overflow: hidden;
 }
 
 .modal-image-preview img {
@@ -204,6 +210,66 @@ tbody tr:hover {
 .modal-image-preview p {
   color: #777;
   font-weight: 700;
+}
+
+.modal-img-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.18);
+  color: white;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: 0.3s ease;
+}
+
+.modal-image-preview:hover .modal-img-nav {
+  display: flex;
+}
+
+.modal-img-nav:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-img-nav.prev {
+  left: 12px;
+}
+
+.modal-img-nav.next {
+  right: 12px;
+}
+
+.modal-thumbnail-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.modal-thumbnail-list img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 6px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.modal-thumbnail-list img.active,
+.modal-thumbnail-list img:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
 }
 
 .form-grid {

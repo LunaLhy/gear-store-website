@@ -1,5 +1,6 @@
+const API_PRODUCT_URL =
+  `${window.location.origin}/api/products`;
 
-const API_PRODUCT_URL =`/api/products`;
 const token = localStorage.getItem("token");
 
 const tableBody = document.getElementById("productTableBody");
@@ -11,16 +12,18 @@ const addModal = document.getElementById("addModal");
 const closeAddModalBtn = document.getElementById("closeAddModalBtn");
 const addProductForm = document.getElementById("addProductForm");
 
-const addImageInput = document.getElementById("addImage");
-const addPreviewImage = document.getElementById("addPreviewImage");
-const addPreviewText = document.getElementById("addPreviewText");
-
 /* EDIT MODAL */
 const editModal = document.getElementById("editModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const editProductForm = document.getElementById("editProductForm");
 
 let allProducts = [];
+
+let addImagesPreview = [];
+let addCurrentIndex = 0;
+
+let editImagesPreview = [];
+let editCurrentIndex = 0;
 
 function showToast(message) {
   toast.innerText = message;
@@ -29,6 +32,18 @@ function showToast(message) {
   setTimeout(() => {
     toast.classList.remove("show");
   }, 2500);
+}
+
+function getImagesFromInputs(mainImageValue, imagesValue) {
+  const mainImage = mainImageValue.trim();
+
+  const images = imagesValue
+    .trim()
+    .split("\n")
+    .map((img) => img.trim())
+    .filter((img) => img !== "");
+
+  return mainImage ? [mainImage, ...images] : images;
 }
 
 async function loadProducts() {
@@ -103,15 +118,58 @@ function renderProducts(products) {
   });
 }
 
-/* ADD PRODUCT */
+/* ADD PREVIEW */
+
+function renderAddPreview() {
+  const previewImage = document.getElementById("addPreviewImage");
+  const previewText = document.getElementById("addPreviewText");
+  const thumbnailList = document.getElementById("addThumbnailList");
+
+  addImagesPreview = getImagesFromInputs(
+    document.getElementById("addImage").value,
+    document.getElementById("addImages").value
+  );
+
+  if (addImagesPreview.length === 0) {
+    previewImage.src = "";
+    previewImage.style.display = "none";
+    previewText.style.display = "block";
+    previewText.innerText = "Image preview";
+    thumbnailList.innerHTML = "";
+    return;
+  }
+
+  if (addCurrentIndex >= addImagesPreview.length) {
+    addCurrentIndex = 0;
+  }
+
+  previewImage.src = addImagesPreview[addCurrentIndex];
+  previewImage.style.display = "block";
+  previewText.style.display = "none";
+
+  thumbnailList.innerHTML = addImagesPreview
+    .map((img, index) => {
+      return `
+        <img
+          src="${img}"
+          class="${index === addCurrentIndex ? "active" : ""}"
+          onclick="changeAddImage(${index})"
+        />
+      `;
+    })
+    .join("");
+}
+
+window.changeAddImage = function(index) {
+  addCurrentIndex = index;
+  renderAddPreview();
+};
 
 function openAddModal() {
   addProductForm.reset();
 
-  addPreviewImage.src = "";
-  addPreviewImage.style.display = "none";
-  addPreviewText.style.display = "block";
-  addPreviewText.innerText = "Image preview";
+  addCurrentIndex = 0;
+  renderAddPreview();
 
   addModal.classList.add("show");
 }
@@ -120,41 +178,46 @@ function closeAddModal() {
   addModal.classList.remove("show");
 }
 
-if (openAddModalBtn) {
-  openAddModalBtn.addEventListener("click", openAddModal);
-}
+openAddModalBtn.addEventListener("click", openAddModal);
+closeAddModalBtn.addEventListener("click", closeAddModal);
 
-if (closeAddModalBtn) {
-  closeAddModalBtn.addEventListener("click", closeAddModal);
-}
-
-if (addModal) {
-  addModal.addEventListener("click", (e) => {
-    if (e.target === addModal) {
-      closeAddModal();
-    }
-  });
-}
-
-addImageInput.addEventListener("input", () => {
-  const imageUrl = addImageInput.value.trim();
-
-  if (imageUrl) {
-    addPreviewImage.src = imageUrl;
-    addPreviewImage.style.display = "block";
-    addPreviewText.style.display = "none";
-  } else {
-    addPreviewImage.src = "";
-    addPreviewImage.style.display = "none";
-    addPreviewText.style.display = "block";
-  }
+addModal.addEventListener("click", (e) => {
+  if (e.target === addModal) closeAddModal();
 });
 
-addPreviewImage.addEventListener("error", () => {
-  addPreviewImage.style.display = "none";
-  addPreviewText.style.display = "block";
-  addPreviewText.innerText = "Image URL is invalid";
+document.getElementById("addImage").addEventListener("input", () => {
+  addCurrentIndex = 0;
+  renderAddPreview();
 });
+
+document.getElementById("addImages").addEventListener("input", () => {
+  addCurrentIndex = 0;
+  renderAddPreview();
+});
+
+document.getElementById("addPrevBtn").addEventListener("click", () => {
+  if (addImagesPreview.length === 0) return;
+
+  addCurrentIndex =
+    addCurrentIndex <= 0
+      ? addImagesPreview.length - 1
+      : addCurrentIndex - 1;
+
+  renderAddPreview();
+});
+
+document.getElementById("addNextBtn").addEventListener("click", () => {
+  if (addImagesPreview.length === 0) return;
+
+  addCurrentIndex =
+    addCurrentIndex >= addImagesPreview.length - 1
+      ? 0
+      : addCurrentIndex + 1;
+
+  renderAddPreview();
+});
+
+/* ADD PRODUCT */
 
 addProductForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -206,9 +269,54 @@ addProductForm.addEventListener("submit", async (e) => {
   }
 });
 
-/* EDIT PRODUCT */
+/* EDIT PREVIEW */
 
-window.openEditModal = function (productId) {
+function renderEditPreview() {
+  const previewImage = document.getElementById("editPreviewImage");
+  const previewText = document.getElementById("editPreviewText");
+  const thumbnailList = document.getElementById("editThumbnailList");
+
+  editImagesPreview = getImagesFromInputs(
+    document.getElementById("editImage").value,
+    document.getElementById("editImages").value
+  );
+
+  if (editImagesPreview.length === 0) {
+    previewImage.src = "";
+    previewImage.style.display = "none";
+    previewText.style.display = "block";
+    previewText.innerText = "Image preview";
+    thumbnailList.innerHTML = "";
+    return;
+  }
+
+  if (editCurrentIndex >= editImagesPreview.length) {
+    editCurrentIndex = 0;
+  }
+
+  previewImage.src = editImagesPreview[editCurrentIndex];
+  previewImage.style.display = "block";
+  previewText.style.display = "none";
+
+  thumbnailList.innerHTML = editImagesPreview
+    .map((img, index) => {
+      return `
+        <img
+          src="${img}"
+          class="${index === editCurrentIndex ? "active" : ""}"
+          onclick="changeEditImage(${index})"
+        />
+      `;
+    })
+    .join("");
+}
+
+window.changeEditImage = function(index) {
+  editCurrentIndex = index;
+  renderEditPreview();
+};
+
+window.openEditModal = function(productId) {
   const product = allProducts.find((item) => item._id === productId);
 
   if (!product) {
@@ -228,6 +336,9 @@ window.openEditModal = function (productId) {
   document.getElementById("editCategory").value = product.category || "";
   document.getElementById("editCountInStock").value = product.countInStock || 0;
 
+  editCurrentIndex = 0;
+  renderEditPreview();
+
   editModal.classList.add("show");
 };
 
@@ -235,17 +346,45 @@ function closeEditModal() {
   editModal.classList.remove("show");
 }
 
-if (closeModalBtn) {
-  closeModalBtn.addEventListener("click", closeEditModal);
-}
+closeModalBtn.addEventListener("click", closeEditModal);
 
-if (editModal) {
-  editModal.addEventListener("click", (e) => {
-    if (e.target === editModal) {
-      closeEditModal();
-    }
-  });
-}
+editModal.addEventListener("click", (e) => {
+  if (e.target === editModal) closeEditModal();
+});
+
+document.getElementById("editImage").addEventListener("input", () => {
+  editCurrentIndex = 0;
+  renderEditPreview();
+});
+
+document.getElementById("editImages").addEventListener("input", () => {
+  editCurrentIndex = 0;
+  renderEditPreview();
+});
+
+document.getElementById("editPrevBtn").addEventListener("click", () => {
+  if (editImagesPreview.length === 0) return;
+
+  editCurrentIndex =
+    editCurrentIndex <= 0
+      ? editImagesPreview.length - 1
+      : editCurrentIndex - 1;
+
+  renderEditPreview();
+});
+
+document.getElementById("editNextBtn").addEventListener("click", () => {
+  if (editImagesPreview.length === 0) return;
+
+  editCurrentIndex =
+    editCurrentIndex >= editImagesPreview.length - 1
+      ? 0
+      : editCurrentIndex + 1;
+
+  renderEditPreview();
+});
+
+/* EDIT PRODUCT */
 
 editProductForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -301,7 +440,7 @@ editProductForm.addEventListener("submit", async (e) => {
 
 /* DELETE PRODUCT */
 
-window.deleteProduct = async function (id) {
+window.deleteProduct = async function(id) {
   const confirmDelete = confirm("Delete this product?");
 
   if (!confirmDelete) return;
@@ -317,7 +456,7 @@ window.deleteProduct = async function (id) {
     const data = await response.json();
 
     if (response.ok) {
-      showToast("Product removed successfully!");
+      showToast("Product deleted successfully!");
       loadProducts();
     } else {
       showToast(data.message || "Failed to delete product!");

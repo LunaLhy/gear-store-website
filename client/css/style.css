@@ -172,10 +172,11 @@ body {
   padding: 8px 12px;
 }
 
-#logoutBtn:hover {
-  background: var(--orange-hover);
-  color: var(--white);
-  transform: var(--hover-up);
+#logoutBtn:hover{
+  background: #ef4444;
+  color: white;
+
+  transform: none;
 }
 
 #adminLink {
@@ -660,14 +661,44 @@ body {
   font-size: 24px;
 }
 
-.account-btn{
-  min-width: 230px;
+.account-btn {
+  height: 54px;
 
   padding: 0 18px;
 
+  border: none;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.08);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: fit-content;
+  min-width: unset;
+
   font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.account-btn.admin-account {
+  min-width: 230px;
 }
 
+/**/
+.account-btn{
+  width: fit-content;
+  min-width: unset;
+}
+
+.account-btn.admin-account{
+  min-width: 230px;
+}
+/**/
 .cart-link:hover,
 .login-btn:hover,
 .account-btn:hover {

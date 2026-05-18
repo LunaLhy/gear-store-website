@@ -66,7 +66,6 @@
   </header>
 
   <main class="manager-container">
-
     <div class="manager-header">
       <h1>Manager Products</h1>
 
@@ -96,13 +95,11 @@
         <tbody id="productTableBody"></tbody>
       </table>
     </div>
-
   </main>
 
   <!-- ADD MODAL -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-box modal-box-wide">
-
       <div class="modal-header">
         <h2>Add Product</h2>
 
@@ -113,13 +110,25 @@
 
       <div class="modal-content-grid">
 
-        <div class="modal-image-preview">
-          <img id="addPreviewImage" src="" alt="Product Preview" />
-          <p id="addPreviewText">Image preview</p>
+        <div class="modal-image-area">
+          <div class="modal-image-preview">
+            <button type="button" id="addPrevBtn" class="modal-img-nav prev">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <img id="addPreviewImage" src="" alt="Product Preview" />
+
+            <button type="button" id="addNextBtn" class="modal-img-nav next">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <p id="addPreviewText">Image preview</p>
+          </div>
+
+          <div id="addThumbnailList" class="modal-thumbnail-list"></div>
         </div>
 
         <form id="addProductForm">
-
           <div class="form-grid">
             <div class="form-group">
               <label>Name</label>
@@ -162,11 +171,11 @@
 
             <select id="addCategory" required>
               <option value="">Select category</option>
-              <option value="Keyboard">Keyboard</option>
-              <option value="Mouse">Mouse</option>
-              <option value="Headphone">Headphone</option>
-              <option value="Microphone">Microphone</option>
-              <option value="Other">Other</option>
+              <option value="ban phim">Keyboard</option>
+              <option value="chuot">Mouse</option>
+              <option value="tai nghe">Headphone</option>
+              <option value="mic">Microphone</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
@@ -178,7 +187,6 @@
           <button type="submit" class="save-btn">
             Add Product
           </button>
-
         </form>
 
       </div>
@@ -187,8 +195,7 @@
 
   <!-- EDIT MODAL -->
   <div id="editModal" class="modal-overlay">
-    <div class="modal-box">
-
+    <div class="modal-box modal-box-wide">
       <div class="modal-header">
         <h2>Edit Product</h2>
 
@@ -197,69 +204,90 @@
         </button>
       </div>
 
-      <form id="editProductForm">
-        <input type="hidden" id="editProductId" />
+      <div class="modal-content-grid">
 
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" id="editName" required />
+        <div class="modal-image-area">
+          <div class="modal-image-preview">
+            <button type="button" id="editPrevBtn" class="modal-img-nav prev">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <img id="editPreviewImage" src="" alt="Product Preview" />
+
+            <button type="button" id="editNextBtn" class="modal-img-nav next">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <p id="editPreviewText">Image preview</p>
+          </div>
+
+          <div id="editThumbnailList" class="modal-thumbnail-list"></div>
+        </div>
+
+        <form id="editProductForm">
+          <input type="hidden" id="editProductId" />
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" id="editName" required />
+            </div>
+
+            <div class="form-group">
+              <label>Brand</label>
+              <input type="text" id="editBrand" required />
+            </div>
           </div>
 
           <div class="form-group">
-            <label>Brand</label>
-            <input type="text" id="editBrand" required />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Main Image URL</label>
-          <input type="text" id="editImage" required />
-        </div>
-
-        <div class="form-group">
-          <label>Images</label>
-          <textarea
-            id="editImages"
-            placeholder="Mỗi link ảnh một dòng"
-          ></textarea>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Price</label>
-            <input type="number" id="editPrice" required />
+            <label>Main Image URL</label>
+            <input type="text" id="editImage" required />
           </div>
 
           <div class="form-group">
-            <label>Count In Stock</label>
-            <input type="number" id="editCountInStock" required />
+            <label>Images</label>
+            <textarea
+              id="editImages"
+              placeholder="Each image URL on one line"
+            ></textarea>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label>Category</label>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="number" id="editPrice" required />
+            </div>
 
-          <select id="editCategory" required>
-            <option value="">Select category</option>
-            <option value="Keyboard">Keyboard</option>
-            <option value="Mouse">Mouse</option>
-            <option value="Headphone">Headphone</option>
-            <option value="Microphone">Microphone</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+            <div class="form-group">
+              <label>Count In Stock</label>
+              <input type="number" id="editCountInStock" required />
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label>Description</label>
-          <textarea id="editDescription" required></textarea>
-        </div>
+          <div class="form-group">
+            <label>Category</label>
 
-        <button type="submit" class="save-btn">
-          Save Changes
-        </button>
-      </form>
+            <select id="editCategory" required>
+              <option value="">Select category</option>
+              <option value="ban phim">Keyboard</option>
+              <option value="chuot">Mouse</option>
+              <option value="tai nghe">Headphone</option>
+              <option value="mic">Microphone</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="editDescription" required></textarea>
+          </div>
+
+          <button type="submit" class="save-btn">
+            Save Changes
+          </button>
+        </form>
+
+      </div>
     </div>
   </div>
 

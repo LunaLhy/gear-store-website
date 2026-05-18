@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Lỗi login:', error);
-                alert('Thu lai sau');
+                alert('Try Again Later');
             }
         });
     }
