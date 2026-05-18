@@ -193,12 +193,12 @@ addProductForm.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      showToast("Thêm sản phẩm thành công!");
+      showToast("Product added successfully!");
 
       closeAddModal();
       loadProducts();
     } else {
-      showToast(data.message || "Thêm sản phẩm thất bại!");
+      showToast(data.message || "Failed to add product!");
     }
 
   } catch (error) {
@@ -286,12 +286,12 @@ editProductForm.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      showToast("Chỉnh sửa sản phẩm thành công!");
+      showToast("Product updated successfully!");
 
       closeEditModal();
       loadProducts();
     } else {
-      showToast(data.message || "Chỉnh sửa thất bại!");
+      showToast(data.message || "Failed to update product!");
     }
 
   } catch (error) {
@@ -318,10 +318,10 @@ window.deleteProduct = async function (id) {
     const data = await response.json();
 
     if (response.ok) {
-      showToast("Xóa sản phẩm thành công!");
+      showToast("Product removed successfully!");
       loadProducts();
     } else {
-      showToast(data.message || "Xóa sản phẩm thất bại!");
+      showToast(data.message || "Failed to delete product!");
     }
 
   } catch (error) {
