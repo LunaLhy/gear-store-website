@@ -1,5 +1,4 @@
-const API_PRODUCT_URL =
-  `${window.location.origin}/api/products`;
+const API_PRODUCT_URL =`/api/products`;
 const user = JSON.parse(localStorage.getItem("user"));
 const token = localStorage.getItem("token");
 

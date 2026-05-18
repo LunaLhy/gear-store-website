@@ -1,6 +1,4 @@
-const API_PRODUCT_URL =
-  `${window.location.origin}/api/products`;
-
+const API_PRODUCT_URL =`/api/products`;
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 

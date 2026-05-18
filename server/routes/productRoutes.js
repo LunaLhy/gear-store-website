@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: "Ban chua dang nhap" });
+            return res.status(401).json({ message: "You haven't log it yet" });
         }
 
         const token = authHeader.split(' ')[1];
@@ -20,11 +20,11 @@ router.post('/', async (req, res) => {
             const createdProduct = await product.save();
             res.status(201).json(createdProduct);
         } else {
-            res.status(403).json({ message: "khong co quyen" });
+            res.status(403).json({ message: "you not have permission to do this" });
         }
 
     } catch (error) {
-        res.status(401).json({ message: "Token khong hop le" });
+        res.status(401).json({ message: "Token unavailable" });
     }
 });
 
@@ -102,14 +102,14 @@ router.put('/:id', async (req, res) => {
             if (updatedProduct) {
                 res.json(updatedProduct);
             } else {
-                res.status(404).json({ message: "Khong tim thay san pham" });
+                res.status(404).json({ message: "There are no product match your keywords" });
             }
         } else {
-            res.status(403).json({ message: "Ban khong co quyen sua san pham" });
+            res.status(403).json({ message: "You don't have permission to do this action" });
         }
 
     } catch (error) {
-        res.status(401).json({ message: "Token khong hop le" });
+        res.status(401).json({ message: "Token unavailable" });
     }
 });
 
@@ -118,7 +118,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: "Chua dang nhap" });
+            return res.status(401).json({ message: "Login first" });
         }
         const token = authHeader.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);        
@@ -130,14 +130,14 @@ router.delete('/:id', async (req, res) => {
             if (deletedProduct) {
                 res.json({ message: "Da xoa thanh cong" });
             } else {
-                res.status(404).json({ message: "Khong tim thay san pham" });
+                res.status(404).json({ message: "There are no products match your keywords" });
             }
         } else {
-            res.status(403).json({ message: "Ban khong co quyen xoa san pham" });
+            res.status(403).json({ message: "You don't have permission to do this" });
         }
 
     } catch (error) {
-        res.status(401).json({ message: "Token khong hop le" });
+        res.status(401).json({ message: "Token unavailable" });
     }
 });
 module.exports = router;

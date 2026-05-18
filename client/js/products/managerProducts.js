@@ -1,6 +1,5 @@
 
-const API_PRODUCT_URL =
-  `${window.location.origin}/api/products`;
+const API_PRODUCT_URL =`/api/products`;
 const token = localStorage.getItem("token");
 
 const tableBody = document.getElementById("productTableBody");
