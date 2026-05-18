@@ -64,14 +64,14 @@ router.get('/:id', async (req, res) => {
 
     if (!product) {
       return res.status(404).json({
-        message: "Khong tim thay san pham"
+        message: "There are no product match your keywords"
       });
     }
 
     res.json(product);
   } catch (error) {
     res.status(500).json({
-      message: "Khong the load chi tiet san pham"
+      message: "loading product details unsucessful"
     });
   }
 });
@@ -81,7 +81,7 @@ router.put('/:id', async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: "Chua dang nhap" });
+            return res.status(401).json({ message: "Log in first!" });
         }
         const token = authHeader.split(' ')[1];
 
@@ -128,7 +128,7 @@ router.delete('/:id', async (req, res) => {
             const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
             if (deletedProduct) {
-                res.json({ message: "Da xoa thanh cong" });
+                res.json({ message: "Deleted" });
             } else {
                 res.status(404).json({ message: "There are no products match your keywords" });
             }

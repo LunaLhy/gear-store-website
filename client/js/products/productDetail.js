@@ -158,11 +158,11 @@ function updateArrowState() {
 
 function formatCategory(category) {
   const categoryMap = {
-    "ban phim": "Keyboard",
-    "chuot": "Mouse",
-    "tai nghe": "Headphone",
-    "mic": "Microphone",
-    "other": "Other"
+    "Keyboard": "Keyboard",
+    "Mouse": "Mouse",
+    "Headphone": "Headphone",
+    "Microphone": "Microphone",
+    "Other": "Other"
   };
 
   return categoryMap[category] || category;

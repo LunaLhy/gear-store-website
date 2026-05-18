@@ -1,5 +1,5 @@
 const API_PRODUCT_URL =
-  `${window.location.origin}/api/products`;
+  `/api/products`;
 
 const token = localStorage.getItem("token");
 
