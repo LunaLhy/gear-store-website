@@ -1,4 +1,5 @@
-const API_PRODUCT_URL =`/api/products`;let allProducts = []; 
+const API_PRODUCT_URL =`/api/products`;
+let allProducts = []; 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 const isAdmin = user.isAdmin || false;
 
