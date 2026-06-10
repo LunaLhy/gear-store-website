@@ -3,78 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Manager Products - Gear Store</title>
-
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/managerProducts.css" />
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
-
 <body>
-
-  <header class="header">
-    <a href="index.html" class="logo main-logo">
-      <img src="../assets/logo.png" alt="GearStore Logo" />
-      <span>Gear Store</span>
-    </a>
-
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search products..." />
-      <button id="searchBtn">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-    </div>
-
-    <nav class="nav">
-      <a href="cart.html" class="cart-link">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </a>
-
-      <a href="login.html" id="loginLink" class="login-btn">
-        <i class="fa-regular fa-circle-user"></i>
-        <span>Log in</span>
-      </a>
-
-      <div id="userBox" class="user-box" style="display:none;">
-        <button id="accountBtn" class="account-btn">
-          <i class="fa-solid fa-user"></i>
-          <span id="userName"></span>
-
-          <span id="adminBadge" class="admin-badge" style="display:none;">
-            ADMIN
-          </span>
-
-          <i class="fa-solid fa-chevron-down"></i>
-        </button>
-
-        <div id="accountDropdown" class="account-dropdown">
-          <a href="managerProducts.html" class="admin-only">
-            Manager Products
-          </a>
-
-          <button id="logoutBtn">
-            Logout
-          </button>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <div data-navbar></div>
 
   <main class="manager-container">
     <div class="manager-header">
       <h1>Manager Products</h1>
-
-      <div class="header-actions">
-        <button id="openAddModalBtn" class="add-btn">
-          <i class="fa-solid fa-plus"></i>
-          Add Product
-        </button>
-      </div>
+      <button id="openAddModalBtn" class="add-btn">
+        <i class="fa-solid fa-plus"></i> Add Product</button>
     </div>
 
     <div class="table-wrapper">
@@ -91,85 +32,64 @@
             <th>Delete</th>
           </tr>
         </thead>
-
         <tbody id="productTableBody"></tbody>
       </table>
     </div>
   </main>
 
-  <!-- ADD MODAL -->
-  <div id="addModal" class="modal-overlay">
+  <template id="productModalTemplate">
     <div class="modal-box modal-box-wide">
       <div class="modal-header">
-        <h2>Add Product</h2>
-
-        <button id="closeAddModalBtn" class="close-btn">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <h2 class="modal-title"></h2>
+        <button class="close-btn" type="button"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="modal-content-grid">
-
         <div class="modal-image-area">
           <div class="modal-image-preview">
-            <button type="button" id="addPrevBtn" class="modal-img-nav prev">
-              <i class="fa-solid fa-chevron-left"></i>
+            <button type="button" class="modal-img-nav prev"><i class="fa-solid fa-chevron-left"></i>
             </button>
-
-            <img id="addPreviewImage" src="" alt="Product Preview" />
-
-            <button type="button" id="addNextBtn" class="modal-img-nav next">
-              <i class="fa-solid fa-chevron-right"></i>
+            <img class="preview-image" src="" alt="Product Preview" />
+            <button type="button" class="modal-img-nav next"><i class="fa-solid fa-chevron-right"></i>
             </button>
-
-            <p id="addPreviewText">Image preview</p>
+            <p class="preview-text">Image preview</p>
           </div>
-
-          <div id="addThumbnailList" class="modal-thumbnail-list"></div>
+          <div class="modal-thumbnail-list"></div>
         </div>
 
-        <form id="addProductForm">
+        <form class="product-form">
+          <input type="hidden" name="id" />
           <div class="form-grid">
             <div class="form-group">
               <label>Name</label>
-              <input type="text" id="addName" required />
+              <input name="name" type="text" required />
             </div>
-
             <div class="form-group">
               <label>Brand</label>
-              <input type="text" id="addBrand" required />
+              <input name="brand" type="text" required />
             </div>
           </div>
-
           <div class="form-group">
             <label>Main Image URL</label>
-            <input type="text" id="addImage" required />
+            <input name="image" type="text" required />
           </div>
-
           <div class="form-group">
             <label>Images</label>
-            <textarea
-              id="addImages"
-              placeholder="Mỗi link ảnh một dòng"
-            ></textarea>
+            <textarea name="images" placeholder="Each image URL on one line"></textarea>
           </div>
-
           <div class="form-grid">
             <div class="form-group">
               <label>Price</label>
-              <input type="number" id="addPrice" required />
+              <input name="price" type="number" min="0" required />
             </div>
-
             <div class="form-group">
               <label>Count In Stock</label>
-              <input type="number" id="addCountInStock" required />
+              <input name="countInStock" type="number" min="0" required />
             </div>
           </div>
-
           <div class="form-group">
             <label>Category</label>
-
-            <select id="addCategory" required>
+            <select name="category" required>
               <option value="">Select category</option>
               <option value="Keyboard">Keyboard</option>
               <option value="Mouse">Mouse</option>
@@ -178,124 +98,22 @@
               <option value="Other">Other</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Description</label>
-            <textarea id="addDescription" required></textarea>
+            <textarea name="description" required></textarea>
           </div>
-
-          <button type="submit" class="save-btn">
-            Add Product
-          </button>
+          <button type="submit" class="save-btn"></button>
         </form>
-
       </div>
     </div>
-  </div>
+  </template>
 
-  <!-- EDIT MODAL -->
-  <div id="editModal" class="modal-overlay">
-    <div class="modal-box modal-box-wide">
-      <div class="modal-header">
-        <h2>Edit Product</h2>
-
-        <button id="closeModalBtn" class="close-btn">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="modal-content-grid">
-
-        <div class="modal-image-area">
-          <div class="modal-image-preview">
-            <button type="button" id="editPrevBtn" class="modal-img-nav prev">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-
-            <img id="editPreviewImage" src="" alt="Product Preview" />
-
-            <button type="button" id="editNextBtn" class="modal-img-nav next">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-
-            <p id="editPreviewText">Image preview</p>
-          </div>
-
-          <div id="editThumbnailList" class="modal-thumbnail-list"></div>
-        </div>
-
-        <form id="editProductForm">
-          <input type="hidden" id="editProductId" />
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Name</label>
-              <input type="text" id="editName" required />
-            </div>
-
-            <div class="form-group">
-              <label>Brand</label>
-              <input type="text" id="editBrand" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Main Image URL</label>
-            <input type="text" id="editImage" required />
-          </div>
-
-          <div class="form-group">
-            <label>Images</label>
-            <textarea
-              id="editImages"
-              placeholder="Each image URL on one line"
-            ></textarea>
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Price</label>
-              <input type="number" id="editPrice" required />
-            </div>
-
-            <div class="form-group">
-              <label>Count In Stock</label>
-              <input type="number" id="editCountInStock" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Category</label>
-
-            <select id="editCategory" required>
-              <option value="">Select category</option>
-              <option value="Keyboard">Keyboard</option>
-              <option value="Mouse">Mouse</option>
-              <option value="Headphone">Headphone</option>
-              <option value="Microphone">Microphone</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Description</label>
-            <textarea id="editDescription" required></textarea>
-          </div>
-
-          <button type="submit" class="save-btn">
-            Save Changes
-          </button>
-        </form>
-
-      </div>
-    </div>
-  </div>
-
+  <div id="addModal" class="modal-overlay"></div>
+  <div id="editModal" class="modal-overlay"></div>
   <div id="toast"></div>
 
   <script src="../js/components/navbar.js"></script>
-  <script type="module" src="../js/products/searchProducts.js"></script>
+  <script src="../js/products/searchProducts.js"></script>
   <script src="../js/products/managerProducts.js"></script>
-
 </body>
 </html>

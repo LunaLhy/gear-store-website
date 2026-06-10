@@ -3,81 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Login - Gear Store</title>
-
   <link rel="stylesheet" href="../css/auth.css" />
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
-
 <body>
+  <main class="auth-container">
+    <section class="auth-left">
+      <a href="index.html" class="auth-brand">
+        <img src="../assets/logo.png" alt="Gear Store Logo" />
+        <h1>Gear Store</h1>
+      </a>
+      <p>Login to continue shopping and manage your gaming gear.</p>
+    </section>
 
-  <div class="register-container">
-
-    <div class="register-left">
-      <a href="index.html" class="auth-logo-link">
-      <img
-        src="../assets/logo.png"
-        alt="Gear Store Logo"
-        class="register-logo"
-      />
-      </a>  
-
-      <h1>Gear Store</h1>
-
-      <p>
-        Login to continue shopping and manage your gaming gear.
-      </p>
-    </div>
-
-    <div class="register-right">
-
+    <section class="auth-right">
       <h2>Login</h2>
-
-      <form id="loginForm">
-
-        <div class="input-box">
-          <i class="fa-solid fa-envelope"></i>
-
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <div class="input-box">
-          <i class="fa-solid fa-lock"></i>
-
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <button type="submit" class="register-btn">
-          Login
-        </button>
-
+      <form id="loginForm" class="auth-form">
+        
+        <div class="input-box"><i class="fa-solid fa-envelope"></i><input type="email" id="email" placeholder="Enter your email" required oninvalid="this.setCustomValidity('Please enter a valid email address.')" oninput="this.setCustomValidity('')" /></div>
+        <div class="input-box"><i class="fa-solid fa-lock"></i><input type="password" id="password" placeholder="Enter your password" required oninvalid="this.setCustomValidity('Please enter your password.')" oninput="this.setCustomValidity('')" /></div>
+        <button type="submit" class="auth-btn">Login</button>
       </form>
-
-      <div class="login-link">
-        Don't have an account?
+      <p class="auth-link">Don't have an account? 
         <a href="register.html">Register now</a>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script type="module" src="../js/auth/login.js"></script>
-
+      </p>
+    </section>
+  </main>
+  <script src="../js/auth/login.js"></script>
 </body>
 </html>

@@ -1,143 +1,61 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gear Store</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/product.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gear Store</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/product.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
-<header class="header">
-    <a href="index.html" class="logo main-logo">
-        <img src="../assets/logo.png" alt="GearStore Logo" />
-        <span>Gear Store</span>
-    </a>
+  <div data-navbar></div>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search products..." />
-        <button id="searchBtn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+  <section class="hero">
+    <div class="hero-overlay">
+
     </div>
-
-<nav class="nav">
-  <a href="cart.html" class="cart-link">
-    <i class="fa-solid fa-cart-shopping"></i>
-  </a>
-
-  <a href="login.html" id="loginLink" class="login-btn">
-    <i class="fa-regular fa-circle-user"></i>
-    <span>Log in</span>
-  </a>
-
-  <div id="userBox" class="user-box" style="display:none;">
-    <button id="accountBtn" class="account-btn">
-      <i class="fa-solid fa-user"></i>
-      <span id="userName"></span>
-
-      <span id="adminBadge" class="admin-badge" style="display:none;">
-        ADMIN
-      </span>
-
-      <i class="fa-solid fa-chevron-down"></i>
-    </button>
-
-    <div id="accountDropdown" class="account-dropdown">
-      <a href="managerProducts.html" class="admin-only">Manager Products</a>
-      <button id="logoutBtn">Logout</button>
+    <div class="hero-content">
+      <h1>Build Your Dream Setup</h1>
+      <p>Premium Gaming Gear For Gamers</p>
+      <a href="products.html" class="shop-now-btn">Shop Now</a>
     </div>
-  </div>
-</nav>
-</header>
+  </section>
 
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Build Your Dream Setup</h1>
-            <p>Premium Gaming Gear For Gamers</p>
-            <a href="products.html" class="shop-now-btn">Shop Now</a>
-        </div>
-    </section>
+  <section class="categories-section">
+    <h2>Categories</h2>
+    <div class="categories-row">
+      <a href="products.html?category=Keyboard" class="category-image-card">
+        <img src="https://th.bing.com/th/id/OIP.24Hr57MSVz4VxjSblrcH1gHaEK?w=365&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Keyboard">
+        <span>Keyboard</span>
+      </a>
+      <a href="products.html?category=Mouse" class="category-image-card">
+        <img src="https://th.bing.com/th/id/OIP.kCGpVvYjD3jPTED5hAT5OgHaF7?w=207&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Mouse">
+        <span>Mouse</span>
+      </a>
+      <a href="products.html?category=Headphone" class="category-image-card">
+        <img src="https://th.bing.com/th/id/OIP.zb7BxhhLpgBqcbM5hw6MUQHaGP?w=212&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Headphone">
+        <span>Headphone</span>
+      </a>
+      <a href="products.html?category=Microphone" class="category-image-card">
+        <img src="https://th.bing.com/th/id/OIP.zUxkqQJy4ikk-Xu7QEJGiAHaEK?w=324&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Microphone">
+        <span>Microphone</span>
+      </a>
+      <a href="products.html?category=Other" class="category-image-card">
+        <img src="https://www.mmorpg-gratuit.fr/wp-content/uploads/2024/05/Vous-ne-devinerez-jamais-quels.jpeg.webp" alt="Other">
+        <span>Other</span>
+      </a>
+    </div>
+  </section>
 
-    <section class="categories-section">
-        <h2>Categories</h2>
-        <div class="categories-row">
-            <a href="products.html?category=Keyboard" class="category-image-card">
-                <img src="https://th.bing.com/th/id/OIP.24Hr57MSVz4VxjSblrcH1gHaEK?w=365&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Keyboard">
-                <span>Keyboard</span>
-            </a>
-            <a href="products.html?category=Mouse" class="category-image-card">
-                <img src="https://th.bing.com/th/id/OIP.kCGpVvYjD3jPTED5hAT5OgHaF7?w=207&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Mouse">
-                <span>Mouse</span>
-            </a>
-            <a href="products.html?category=Headphone" class="category-image-card">
-                <img src="https://th.bing.com/th/id/OIP.zb7BxhhLpgBqcbM5hw6MUQHaGP?w=212&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Headphone">
-                <span>Headphone</span>
-            </a>
-            <a href="products.html?category=Microphone" class="category-image-card">
-                <img src="https://th.bing.com/th/id/OIP.zUxkqQJy4ikk-Xu7QEJGiAHaEK?w=324&h=182&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Micro">
-                <span>Micro</span>
-            </a>
-            <a href="products.html?category=Other" class="category-image-card">
-                <img src="https://www.mmorpg-gratuit.fr/wp-content/uploads/2024/05/Vous-ne-devinerez-jamais-quels.jpeg.webp" alt="Other">
-                <span>Other</span>
-            </a>
-        </div>
-    </section>
+  <main class="product-page-main">
+    <div id="productContainer" class="product-grid"></div>
+  </main>
 
-    <main>
-        <div id="productContainer" class="product-grid"></div>
-    </main>
+  <div data-footer></div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-box">
-                <h2>About Us</h2>
-                <p>
-                    GearStore is a modern gaming gear website for gamers. We provide
-                    keyboards, mice, headphones, microphones and accessories with a clean and simple
-                    shopping experience.
-                </p>
-            </div>
-
-            <div class="footer-box contact-box">
-                <h2>Contact Us</h2>
-                <div class="contact-item">
-                    <span>📧</span>
-                    <p>gearstore@gmail.com</p>
-                </div>
-                <div class="contact-item">
-                    <span>📞</span>
-                    <p>+84 123 456 789</p>
-                </div>
-                <div class="contact-item">
-                    <span>📍</span>
-                    <p>Hanoi, Vietnam</p>
-                </div>
-            </div>
-
-            <div class="footer-box">
-                <h2>Follow Us</h2>
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i> <span>Facebook</span></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i> <span>Instagram</span></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i> <span>TikTok</span></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i> <span>YouTube</span></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2026 GearStore Website | Designed by Long/Hieu/Truong</p>
-        </div>
-    </footer>
-
-    <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/components/navbar.js"></script>
-    <script type="module" src="/js/products/Products.js"></script>
-    <script type="module" src="/js/products/searchProducts.js"></script>
+  <script src="../js/components/navbar.js"></script>
+  <script src="../js/products/searchProducts.js"></script>
+  <script src="../js/products/Products.js"></script>
 </body>
 </html>

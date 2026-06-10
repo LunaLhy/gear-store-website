@@ -1,471 +1,208 @@
-const API_PRODUCT_URL =
-  `/api/products`;
+const API_PRODUCT_URL = '/api/products';
+const token = localStorage.getItem('token');
+const tableBody = document.getElementById('productTableBody');
+const toast = document.getElementById('toast');
+let products = [];
+let addModal;
+let editModal;
 
-const token = localStorage.getItem("token");
+class ProductModal {
+  constructor(id, mode, onSubmit) {
+    this.root = document.getElementById(id);
+    this.mode = mode;
+    this.onSubmit = onSubmit;
+    this.images = [];
+    this.index = 0;
+    this.build();
+  }
 
-const tableBody = document.getElementById("productTableBody");
-const toast = document.getElementById("toast");
+  build() {
+    const template = document.getElementById('productModalTemplate');
+    this.root.appendChild(template.content.cloneNode(true));
+    this.form = this.root.querySelector('.product-form');
+    this.title = this.root.querySelector('.modal-title');
+    this.saveBtn = this.root.querySelector('.save-btn');
+    this.preview = this.root.querySelector('.preview-image');
+    this.previewText = this.root.querySelector('.preview-text');
+    this.thumbs = this.root.querySelector('.modal-thumbnail-list');
+    this.root.querySelector('.close-btn').addEventListener('click', () => this.close());
+    this.root.querySelector('.prev').addEventListener('click', () => this.move(-1));
+    this.root.querySelector('.next').addEventListener('click', () => this.move(1));
+    this.root.addEventListener('click', (e) => { if (e.target === this.root) this.close(); });
+    this.form.image.addEventListener('input', () => this.refreshPreview());
+    this.form.images.addEventListener('input', () => this.refreshPreview());
+    this.form.addEventListener('submit', (e) => this.submit(e));
+  }
 
-/* ADD MODAL */
-const openAddModalBtn = document.getElementById("openAddModalBtn");
-const addModal = document.getElementById("addModal");
-const closeAddModalBtn = document.getElementById("closeAddModalBtn");
-const addProductForm = document.getElementById("addProductForm");
+  open(product = {}) {
+    this.form.reset();
+    this.title.textContent = this.mode === 'add' ? 'Add Product' : 'Edit Product';
+    this.saveBtn.textContent = this.mode === 'add' ? 'Add Product' : 'Save Changes';
+    this.setForm(product);
+    this.index = 0;
+    this.refreshPreview();
+    this.root.classList.add('show');
+  }
 
-/* EDIT MODAL */
-const editModal = document.getElementById("editModal");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const editProductForm = document.getElementById("editProductForm");
+  close() { this.root.classList.remove('show'); }
 
-let allProducts = [];
+  setForm(product) {
+    const fields = ['id', 'name', 'brand', 'image', 'price', 'description', 'category', 'countInStock'];
+    fields.forEach(field => {
+      if (this.form[field]) this.form[field].value = product[field === 'id' ? '_id' : field] ?? '';
+    });
+    this.form.images.value = (product.images || []).join('\n');
+  }
 
-let addImagesPreview = [];
-let addCurrentIndex = 0;
+  getData() {
+    const images = this.form.images.value.split('\n').map(v => v.trim()).filter(Boolean);
+    return {
+      name: this.form.name.value.trim(),
+      brand: this.form.brand.value.trim(),
+      image: this.form.image.value.trim(),
+      images,
+      price: Number(this.form.price.value),
+      description: this.form.description.value.trim(),
+      category: this.form.category.value,
+      countInStock: Number(this.form.countInStock.value)
+    };
+  }
 
-let editImagesPreview = [];
-let editCurrentIndex = 0;
+  refreshPreview() {
+    const main = this.form.image.value.trim();
+    const extra = this.form.images.value.split('\n').map(v => v.trim()).filter(Boolean);
+    this.images = main ? [main, ...extra] : extra;
+    if (this.index >= this.images.length) this.index = 0;
 
-function showToast(message) {
-  toast.innerText = message;
-  toast.classList.add("show");
+    if (!this.images.length) {
+      this.preview.src = '';
+      this.preview.style.display = 'none';
+      this.previewText.style.display = 'block';
+      this.previewText.textContent = 'Image preview';
+      this.thumbs.innerHTML = '';
+      return;
+    }
 
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2500);
+    this.preview.src = this.images[this.index];
+    this.preview.style.display = 'block';
+    this.previewText.style.display = 'none';
+    this.thumbs.innerHTML = this.images.map((src, index) => `
+      <img src="${src}" class="${index === this.index ? 'active' : ''}" data-index="${index}" />
+    `).join('');
+    this.thumbs.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', () => {
+        this.index = Number(img.dataset.index);
+        this.refreshPreview();
+      });
+    });
+  }
+
+  move(step) {
+    if (!this.images.length) return;
+    this.index = (this.index + step + this.images.length) % this.images.length;
+    this.refreshPreview();
+  }
+
+  async submit(e) {
+    e.preventDefault();
+    await this.onSubmit(this.getData(), this.form.id.value);
+  }
 }
 
-function getImagesFromInputs(mainImageValue, imagesValue) {
-  const mainImage = mainImageValue.trim();
+document.addEventListener('DOMContentLoaded', () => {
+  addModal = new ProductModal('addModal', 'add', createProduct);
+  editModal = new ProductModal('editModal', 'edit', updateProduct);
+  document.getElementById('openAddModalBtn').addEventListener('click', () => addModal.open());
+  loadProducts();
+});
 
-  const images = imagesValue
-    .trim()
-    .split("\n")
-    .map((img) => img.trim())
-    .filter((img) => img !== "");
+function isAdminUser() {
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  return user && (user.role === 'admin' || user.isAdmin === true || user.isAdmin === 'true');
+}
 
-  return mainImage ? [mainImage, ...images] : images;
+if (!isAdminUser()) {
+  alert('Only admin can access this page');
+  window.location.href = 'login.html';
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 async function loadProducts() {
   try {
-    const response = await fetch(API_PRODUCT_URL);
-    const products = await response.json();
-
-    allProducts = products;
-    renderProducts(products);
-
+    const res = await fetch(API_PRODUCT_URL);
+    products = await res.json();
+    renderProducts();
   } catch (error) {
-    console.error("Load products error:", error);
-
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="8">Cannot load products</td>
-      </tr>
-    `;
+    console.error(error);
+    tableBody.innerHTML = '<tr><td colspan="8">Cannot load products</td></tr>';
   }
 }
 
-function renderProducts(products) {
-  tableBody.innerHTML = "";
-
-  products.forEach((product) => {
-    const stockClass =
-      product.countInStock > 0 ? "stock" : "stock out-stock";
-
-    tableBody.innerHTML += `
-      <tr>
-        <td>
-          <img
-            src="${product.image}"
-            alt="${product.name}"
-            class="product-img"
-          />
-        </td>
-
-        <td>${product.name}</td>
-        <td>${product.brand}</td>
-        <td>${product.category}</td>
-
-        <td>
-          ${product.price.toLocaleString("vi-VN")} đ
-        </td>
-
-        <td class="${stockClass}">
-          ${product.countInStock}
-        </td>
-
-        <td>
-          <button
-            class="edit-btn"
-            onclick="openEditModal('${product._id}')"
-          >
-            <i class="fa-solid fa-pen"></i>
-            Edit
-          </button>
-        </td>
-
-        <td>
-          <button
-            class="delete-btn"
-            onclick="deleteProduct('${product._id}')"
-          >
-            <i class="fa-solid fa-trash"></i>
-            Delete
-          </button>
-        </td>
-      </tr>
-    `;
-  });
+function renderProducts() {
+  tableBody.innerHTML = products.map(product => `
+    <tr>
+      <td><img src="${product.image}" alt="${product.name}" class="product-img" /></td>
+      <td>${product.name}</td>
+      <td>${product.brand}</td>
+      <td>${product.category}</td>
+      <td>${formatPrice(product.price)}</td>
+      <td class="${product.countInStock > 0 ? 'stock' : 'stock out-stock'}">${product.countInStock}</td>
+      <td><button class="edit-btn" onclick="openEditModal('${product._id}')"><i class="fa-solid fa-pen"></i> Edit</button></td>
+      <td><button class="delete-btn" onclick="deleteProduct('${product._id}')"><i class="fa-solid fa-trash"></i> Delete</button></td>
+    </tr>
+  `).join('');
 }
 
-/* ADD PREVIEW */
-
-function renderAddPreview() {
-  const previewImage = document.getElementById("addPreviewImage");
-  const previewText = document.getElementById("addPreviewText");
-  const thumbnailList = document.getElementById("addThumbnailList");
-
-  addImagesPreview = getImagesFromInputs(
-    document.getElementById("addImage").value,
-    document.getElementById("addImages").value
-  );
-
-  if (addImagesPreview.length === 0) {
-    previewImage.src = "";
-    previewImage.style.display = "none";
-    previewText.style.display = "block";
-    previewText.innerText = "Image preview";
-    thumbnailList.innerHTML = "";
-    return;
-  }
-
-  if (addCurrentIndex >= addImagesPreview.length) {
-    addCurrentIndex = 0;
-  }
-
-  previewImage.src = addImagesPreview[addCurrentIndex];
-  previewImage.style.display = "block";
-  previewText.style.display = "none";
-
-  thumbnailList.innerHTML = addImagesPreview
-    .map((img, index) => {
-      return `
-        <img
-          src="${img}"
-          class="${index === addCurrentIndex ? "active" : ""}"
-          onclick="changeAddImage(${index})"
-        />
-      `;
-    })
-    .join("");
-}
-
-window.changeAddImage = function(index) {
-  addCurrentIndex = index;
-  renderAddPreview();
+window.openEditModal = (id) => {
+  const product = products.find(item => item._id === id);
+  product ? editModal.open(product) : showToast('Product not found');
 };
 
-function openAddModal() {
-  addProductForm.reset();
-
-  addCurrentIndex = 0;
-  renderAddPreview();
-
-  addModal.classList.add("show");
+async function createProduct(data) {
+  await saveProduct(API_PRODUCT_URL, 'POST', data, 'Product added successfully!', () => addModal.close());
 }
 
-function closeAddModal() {
-  addModal.classList.remove("show");
+async function updateProduct(data, id) {
+  await saveProduct(`${API_PRODUCT_URL}/${id}`, 'PUT', data, 'Product updated successfully!', () => editModal.close());
 }
 
-openAddModalBtn.addEventListener("click", openAddModal);
-closeAddModalBtn.addEventListener("click", closeAddModal);
-
-addModal.addEventListener("click", (e) => {
-  if (e.target === addModal) closeAddModal();
-});
-
-document.getElementById("addImage").addEventListener("input", () => {
-  addCurrentIndex = 0;
-  renderAddPreview();
-});
-
-document.getElementById("addImages").addEventListener("input", () => {
-  addCurrentIndex = 0;
-  renderAddPreview();
-});
-
-document.getElementById("addPrevBtn").addEventListener("click", () => {
-  if (addImagesPreview.length === 0) return;
-
-  addCurrentIndex =
-    addCurrentIndex <= 0
-      ? addImagesPreview.length - 1
-      : addCurrentIndex - 1;
-
-  renderAddPreview();
-});
-
-document.getElementById("addNextBtn").addEventListener("click", () => {
-  if (addImagesPreview.length === 0) return;
-
-  addCurrentIndex =
-    addCurrentIndex >= addImagesPreview.length - 1
-      ? 0
-      : addCurrentIndex + 1;
-
-  renderAddPreview();
-});
-
-/* ADD PRODUCT */
-
-addProductForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const imagesText = document.getElementById("addImages").value.trim();
-
-  const images = imagesText
-    ? imagesText
-        .split("\n")
-        .map((img) => img.trim())
-        .filter((img) => img !== "")
-    : [];
-
-  const productData = {
-    name: document.getElementById("addName").value.trim(),
-    brand: document.getElementById("addBrand").value.trim(),
-    image: document.getElementById("addImage").value.trim(),
-    images,
-    price: Number(document.getElementById("addPrice").value),
-    description: document.getElementById("addDescription").value.trim(),
-    category: document.getElementById("addCategory").value,
-    countInStock: Number(document.getElementById("addCountInStock").value)
-  };
-
+async function saveProduct(url, method, data, successMessage, closeModal) {
   try {
-    const response = await fetch(API_PRODUCT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(productData)
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(data)
     });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      showToast("Product added successfully!");
-
-      closeAddModal();
-      loadProducts();
-    } else {
-      showToast(data.message || "Failed to add product!");
-    }
-
+    const result = await res.json();
+    if (!res.ok) return showToast(result.message || 'Action failed!');
+    showToast(successMessage);
+    closeModal();
+    loadProducts();
   } catch (error) {
-    console.error("Add product error:", error);
-    showToast("Cannot connect to server");
+    console.error(error);
+    showToast('Cannot connect to server');
   }
-});
-
-/* EDIT PREVIEW */
-
-function renderEditPreview() {
-  const previewImage = document.getElementById("editPreviewImage");
-  const previewText = document.getElementById("editPreviewText");
-  const thumbnailList = document.getElementById("editThumbnailList");
-
-  editImagesPreview = getImagesFromInputs(
-    document.getElementById("editImage").value,
-    document.getElementById("editImages").value
-  );
-
-  if (editImagesPreview.length === 0) {
-    previewImage.src = "";
-    previewImage.style.display = "none";
-    previewText.style.display = "block";
-    previewText.innerText = "Image preview";
-    thumbnailList.innerHTML = "";
-    return;
-  }
-
-  if (editCurrentIndex >= editImagesPreview.length) {
-    editCurrentIndex = 0;
-  }
-
-  previewImage.src = editImagesPreview[editCurrentIndex];
-  previewImage.style.display = "block";
-  previewText.style.display = "none";
-
-  thumbnailList.innerHTML = editImagesPreview
-    .map((img, index) => {
-      return `
-        <img
-          src="${img}"
-          class="${index === editCurrentIndex ? "active" : ""}"
-          onclick="changeEditImage(${index})"
-        />
-      `;
-    })
-    .join("");
 }
 
-window.changeEditImage = function(index) {
-  editCurrentIndex = index;
-  renderEditPreview();
-};
-
-window.openEditModal = function(productId) {
-  const product = allProducts.find((item) => item._id === productId);
-
-  if (!product) {
-    showToast("Product not found");
-    return;
+window.deleteProduct = async (id) => {
+  if (!confirm('Delete this product?')) return;
+  try {
+    const res = await fetch(`${API_PRODUCT_URL}/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+    const data = await res.json();
+    if (!res.ok) return showToast(data.message || 'Failed to delete product!');
+    showToast('Product deleted successfully!');
+    loadProducts();
+  } catch (error) {
+    console.error(error);
+    showToast('Cannot connect to server');
   }
-
-  document.getElementById("editProductId").value = product._id;
-  document.getElementById("editName").value = product.name || "";
-  document.getElementById("editBrand").value = product.brand || "";
-  document.getElementById("editImage").value = product.image || "";
-  document.getElementById("editImages").value = product.images
-    ? product.images.join("\n")
-    : "";
-  document.getElementById("editPrice").value = product.price || 0;
-  document.getElementById("editDescription").value = product.description || "";
-  document.getElementById("editCategory").value = product.category || "";
-  document.getElementById("editCountInStock").value = product.countInStock || 0;
-
-  editCurrentIndex = 0;
-  renderEditPreview();
-
-  editModal.classList.add("show");
 };
 
-function closeEditModal() {
-  editModal.classList.remove("show");
+function formatPrice(price) {
+  return `${Number(price || 0).toLocaleString('vi-VN')} đ`;
 }
-
-closeModalBtn.addEventListener("click", closeEditModal);
-
-editModal.addEventListener("click", (e) => {
-  if (e.target === editModal) closeEditModal();
-});
-
-document.getElementById("editImage").addEventListener("input", () => {
-  editCurrentIndex = 0;
-  renderEditPreview();
-});
-
-document.getElementById("editImages").addEventListener("input", () => {
-  editCurrentIndex = 0;
-  renderEditPreview();
-});
-
-document.getElementById("editPrevBtn").addEventListener("click", () => {
-  if (editImagesPreview.length === 0) return;
-
-  editCurrentIndex =
-    editCurrentIndex <= 0
-      ? editImagesPreview.length - 1
-      : editCurrentIndex - 1;
-
-  renderEditPreview();
-});
-
-document.getElementById("editNextBtn").addEventListener("click", () => {
-  if (editImagesPreview.length === 0) return;
-
-  editCurrentIndex =
-    editCurrentIndex >= editImagesPreview.length - 1
-      ? 0
-      : editCurrentIndex + 1;
-
-  renderEditPreview();
-});
-
-/* EDIT PRODUCT */
-
-editProductForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const productId = document.getElementById("editProductId").value;
-
-  const imagesText = document.getElementById("editImages").value.trim();
-
-  const images = imagesText
-    ? imagesText
-        .split("\n")
-        .map((img) => img.trim())
-        .filter((img) => img !== "")
-    : [];
-
-  const updatedProduct = {
-    name: document.getElementById("editName").value.trim(),
-    brand: document.getElementById("editBrand").value.trim(),
-    image: document.getElementById("editImage").value.trim(),
-    images,
-    price: Number(document.getElementById("editPrice").value),
-    description: document.getElementById("editDescription").value.trim(),
-    category: document.getElementById("editCategory").value,
-    countInStock: Number(document.getElementById("editCountInStock").value)
-  };
-
-  try {
-    const response = await fetch(`${API_PRODUCT_URL}/${productId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(updatedProduct)
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      showToast("Product updated successfully!");
-
-      closeEditModal();
-      loadProducts();
-    } else {
-      showToast(data.message || "Failed to update product!");
-    }
-
-  } catch (error) {
-    console.error("Update product error:", error);
-    showToast("Cannot connect to server");
-  }
-});
-
-/* DELETE PRODUCT */
-
-window.deleteProduct = async function(id) {
-  const confirmDelete = confirm("Delete this product?");
-
-  if (!confirmDelete) return;
-
-  try {
-    const response = await fetch(`${API_PRODUCT_URL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      showToast("Product deleted successfully!");
-      loadProducts();
-    } else {
-      showToast(data.message || "Failed to delete product!");
-    }
-
-  } catch (error) {
-    console.error("Delete product error:", error);
-    showToast("Cannot connect to server");
-  }
-};
-
-loadProducts();

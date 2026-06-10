@@ -1,171 +1,88 @@
-const API_PRODUCT_URL =`/api/products`;
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
+const API_PRODUCT_URL = '/api/products';
+const productId = new URLSearchParams(window.location.search).get('id');
+let images = [];
+let currentIndex = 0;
+let currentProduct = null;
 
-const mainImage = document.getElementById("mainImage");
-const thumbnailList = document.getElementById("thumbnailList");
+const els = {
+  mainImage: document.getElementById('mainImage'),
+  thumbnails: document.getElementById('thumbnailList'),
+  name: document.getElementById('productName'),
+  brand: document.getElementById('productBrand'),
+  price: document.getElementById('productPrice'),
+  stock: document.getElementById('productStock'),
+  description: document.getElementById('productDescription'),
+  category: document.getElementById('productCategory'),
+  addCart: document.getElementById('addCartBtn'),
+  buyNow: document.getElementById('buyNowBtn'),
+  prev: document.getElementById('prevImageBtn'),
+  next: document.getElementById('nextImageBtn')
+};
 
-const productName = document.getElementById("productName");
-const productBrand = document.getElementById("productBrand");
-const productPrice = document.getElementById("productPrice");
-const productStock = document.getElementById("productStock");
-const productDescription = document.getElementById("productDescription");
-const productCategory = document.getElementById("productCategory");
+if (!productId) redirectToProducts('Product not found');
 
-const addCartBtn = document.getElementById("addCartBtn");
-const buyNowBtn = document.getElementById("buyNowBtn");
-
-const prevImageBtn = document.getElementById("prevImageBtn");
-const nextImageBtn = document.getElementById("nextImageBtn");
-
-let productImages = [];
-let currentImageIndex = 0;
-
-if (!productId) {
-  alert("Product not found");
-  window.location.href = "products.html";
-}
+document.addEventListener('DOMContentLoaded', loadProductDetail);
+els.prev?.addEventListener('click', () => moveImage(-1));
+els.next?.addEventListener('click', () => moveImage(1));
 
 async function loadProductDetail() {
   try {
     const response = await fetch(`${API_PRODUCT_URL}/${productId}`);
-
-    if (!response.ok) {
-      throw new Error("Cannot load product detail");
-    }
-
-    const product = await response.json();
-
-    renderProductDetail(product);
-
+    if (!response.ok) throw new Error('Cannot load product detail');
+    currentProduct = await response.json();
+    renderProduct(currentProduct);
   } catch (error) {
     console.error(error);
-
-    alert("Cannot load product detail");
-
-    window.location.href = "products.html";
+    redirectToProducts('Cannot load product detail');
   }
 }
 
-function renderProductDetail(product) {
-  productName.innerText = product.name;
-  productBrand.innerText = product.brand;
+function renderProduct(product) {
+  const isOut = product.countInStock <= 0;
+  images = [product.image, ...(product.images || [])].filter(Boolean);
+  currentIndex = 0;
 
-  productPrice.innerText =
-    product.price.toLocaleString("vi-VN") + " đ";
-
-  productDescription.innerText = product.description;
-
-  productCategory.innerText =
-    formatCategory(product.category);
-
-  const isOutOfStock =
-    product.countInStock <= 0;
-
-  productStock.innerText = isOutOfStock
-    ? "Out of stock"
-    : `In stock: ${product.countInStock}`;
-
-  productStock.className = isOutOfStock
-    ? "stock-detail out-stock-detail"
-    : "stock-detail in-stock-detail";
-
-  addCartBtn.disabled = isOutOfStock;
-  buyNowBtn.disabled = isOutOfStock;
-
-  productImages =
-    product.images && product.images.length > 0
-      ? [product.image, ...product.images]
-      : [product.image];
-
-  currentImageIndex = 0;
+  els.name.textContent = product.name;
+  els.brand.textContent = product.brand;
+  els.price.textContent = formatPrice(product.price);
+  els.description.textContent = product.description;
+  els.category.textContent = product.category;
+  els.stock.textContent = isOut ? 'Out of stock' : `In stock: ${product.countInStock}`;
+  els.stock.className = `stock-detail ${isOut ? 'out-stock-detail' : 'in-stock-detail'}`;
+  els.addCart.disabled = isOut;
+  els.buyNow.disabled = isOut;
+  els.addCart.onclick = () => console.log('Add to cart:', product._id);
+  els.buyNow.onclick = () => window.location.href = `checkout.html?id=${product._id}`;
 
   renderImages();
-
-  addCartBtn.onclick = () => {
-    console.log("Add to cart:", product._id);
-  };
-
-  buyNowBtn.onclick = () => {
-    window.location.href =
-      `checkout.html?id=${product._id}`;
-  };
 }
 
 function renderImages() {
-  mainImage.src = productImages[currentImageIndex];
-
-  thumbnailList.innerHTML = productImages
-    .map((img, index) => {
-      return `
-        <img
-          src="${img}"
-          class="${index === currentImageIndex ? "active" : ""}"
-          onclick="changeImage(${index})"
-          alt="Product thumbnail"
-        />
-      `;
-    })
-    .join("");
-
-  updateArrowState();
+  els.mainImage.src = images[currentIndex] || '';
+  els.thumbnails.innerHTML = images.map((src, index) => `
+    <img src="${src}" alt="Product thumbnail" class="${index === currentIndex ? 'active' : ''}" onclick="changeImage(${index})" />
+  `).join('');
+  const showArrows = images.length > 1;
+  els.prev.style.display = showArrows ? 'block' : 'none';
+  els.next.style.display = showArrows ? 'block' : 'none';
 }
 
-window.changeImage = function(index) {
-  currentImageIndex = index;
+function moveImage(step) {
+  if (!images.length) return;
+  currentIndex = (currentIndex + step + images.length) % images.length;
+  renderImages();
+}
 
+window.changeImage = (index) => {
+  currentIndex = index;
   renderImages();
 };
 
-function showPrevImage() {
-  currentImageIndex--;
-
-  if (currentImageIndex < 0) {
-    currentImageIndex = productImages.length - 1;
-  }
-
-  renderImages();
+function formatPrice(price) {
+  return `${Number(price || 0).toLocaleString('vi-VN')} đ`;
 }
 
-function showNextImage() {
-  currentImageIndex++;
-
-  if (currentImageIndex >= productImages.length) {
-    currentImageIndex = 0;
-  }
-
-  renderImages();
+function redirectToProducts(message) {
+  alert(message);
+  window.location.href = 'products.html';
 }
-
-if (prevImageBtn) {
-  prevImageBtn.addEventListener("click", showPrevImage);
-}
-
-if (nextImageBtn) {
-  nextImageBtn.addEventListener("click", showNextImage);
-}
-
-function updateArrowState() {
-  const shouldShow =
-    productImages.length > 1;
-
-  prevImageBtn.style.display =
-    shouldShow ? "block" : "none";
-
-  nextImageBtn.style.display =
-    shouldShow ? "block" : "none";
-}
-
-function formatCategory(category) {
-  const categoryMap = {
-    "Keyboard": "Keyboard",
-    "Mouse": "Mouse",
-    "Headphone": "Headphone",
-    "Microphone": "Microphone",
-    "Other": "Other"
-  };
-
-  return categoryMap[category] || category;
-}
-
-loadProductDetail();

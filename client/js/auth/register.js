@@ -1,57 +1,28 @@
-const API_REGISTER_URL = '/api/users/register'; 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const registerForm = document.getElementById('registerForm');
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegister);
-    }
+  document.getElementById('registerForm')?.addEventListener('submit', register);
 });
 
-async function handleRegister(e) {
-    e.preventDefault();
+async function register(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+  if (password.length < 6) return alert('Password must be at least 6 characters');
 
-    if (!name || !email || !password) {
-        alert('Please fill the missing information');
-        return;
-    }
+  try {
+    const res = await fetch('/api/users/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) return alert(data.message || 'Register failed');
 
-    if (password.length < 6) {
-        alert('password length must be > 6 letter');
-        return;
-    }
-
-    const registerData = {
-        name: name,
-        email: email,
-        password: password
-    };
-
-    try {
-        const response = await fetch(API_REGISTER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(registerData)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert('Register sucessful! redirecting you to the login page!');
-            
-            window.location.href = 'login.html'; 
-        } else {
-            alert(data.message || 'Error, try again');
-        }
-
-    } catch (error) {
-        console.error('Lỗi kết nối API Register:', error);
-        alert('Error');
-    }
+    alert('Register successful! Redirecting to login page.');
+    window.location.href = 'login.html';
+  } catch (error) {
+    console.error('Register error:', error);
+    alert('Try again later');
+  }
 }
