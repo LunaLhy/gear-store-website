@@ -41,7 +41,7 @@ function renderFooter() {
           <a href="#"><div class="social-icon"><i class="fa-brands fa-youtube"></i></div><span>YouTube</span></a>
         </div></div>
       </div>
-      <div class="footer-bottom">© 2026 GearStore Website | Designed for students</div>
+    <div class="footer-bottom">© 2026 GearStore Website | Designed by Hieu - Truong - Long</div>
     </footer>`;
 }
 
