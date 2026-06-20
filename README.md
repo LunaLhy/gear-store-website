@@ -40,15 +40,15 @@ Bước 3: Cài đặt thư viện và Khởi chạy hệ thống
 
 Mở Terminal trong thư mục server/ và chạy tuần tự các lệnh sau:
 
-# Di chuyển vào thư mục server
+Di chuyển vào thư mục server
 
 cd server
 
-# Cài đặt các thư viện Node modules cần thiết
+Cài đặt các thư viện Node modules cần thiết
 
 npm install
 
-# Chạy máy chủ ở chế độ phát triển (sử dụng nodemon)
+Chạy máy chủ ở chế độ phát triển (sử dụng nodemon)
 
 npm run dev
 
